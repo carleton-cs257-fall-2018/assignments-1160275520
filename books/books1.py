@@ -1,3 +1,8 @@
+# Books Phase 1 Homework
+#     @author Yuting Su(suy@carelton.edu)
+#     @author Starr Wang(wangy3@carleton.edu)
+#      2018-09-18
+
 import csv
 import sys
 
@@ -6,7 +11,7 @@ if(len(sys.argv) < 3):
 
 title=[]
 year=[]
-author=[]
+authors=[]
 author_without_year=[]
 
 
@@ -15,26 +20,32 @@ with open(sys.argv[1]) as csvfile:
     for row in spamreader:
         title.append(row[0])
         year.append(row[1])
-        author.append(row[2])
+        authors.append(row[2])
 
     title.sort()
     year.sort()
 
     #remove the year from the author list
-    for author in author:
-        new_author = ""
-        for letter in author:
-            if (letter != '('):
-                new_author = new_author + letter
-            else:
-                break
-        new_author = new_author[:-1]
-        author_without_year.append(new_author)
+    for author in authors:
+        if ("and" in author):
+            author1, author2 = author.split("and ")
+            # print(author1)
+            # print(author2)
+            authors.append(author1)
+            authors.append(author2)
+        else:
+            new_author = ""
+            for letter in author:
+                if (letter != '('):
+                    new_author = new_author + letter
+                else:
+                    break
+            new_author = new_author[:-1]
+            if not (new_author in author_without_year):
+                author_without_year.append(new_author)
 
     #sort the author list by last name
     author_without_year.sort(key=lambda s: s.split()[1])
-
-
 
     if (len(sys.argv) == 3):
         content = sys.argv[2]
@@ -65,6 +76,6 @@ with open(sys.argv[1]) as csvfile:
         else:
             print("Please use the correct format: python3 books1.py input-file action [sort-direction]")
 
-    else:
+    elif (len(sys.argv) > 4):
         print("Please use the correct format: python3 books1.py input-file action [sort-direction]")
   
