@@ -1,7 +1,9 @@
+# Books Phase 2 Homework
+#     @author Yuting Su(suy@carelton.edu)
+#     @author Starr Wang(wangy3@carleton.edu)
+#      2018-09-20
+
 import booksdatasource
-# import books
-# import authors
-# import books_authors
 import unittest
 
 
