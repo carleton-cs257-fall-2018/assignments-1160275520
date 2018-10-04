@@ -29,8 +29,7 @@ with open(sys.argv[1]) as csvfile:
     for author in authors:
         if ("and" in author):
             author1, author2 = author.split("and ")
-            # print(author1)
-            # print(author2)
+
             authors.append(author1)
             authors.append(author2)
         else:
