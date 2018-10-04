@@ -29,13 +29,13 @@ class BooksDataSourceTest(unittest.TestCase):
 		self.assertEqual(self.book_data_source.books(search_text="good"), [{'id': 6, 'title': 'Good Omens', 'publication_year': '1990'}])
 
 	def test_find_books_by_start_year(self):
-		self.assertEqual(self.book_data_source.books(start_year=2010), [{'id': 0, 'title': 'All Clear', 'publication_year': '2010'}, {'id': 3, 'title': 'Blackout', 'publication_year': '2010'}])
+		self.assertEqual(self.book_data_source.books(start_year=2010), [{'id': 0, 'title': 'All Clear', 'publication_year': '2010'}, {'id': 3, 'title': 'Blackout', 'publication_year': '2010'}, {'id': 37, 'title': 'The Fifth Season', 'publication_year': '2015'}, {'id': 38, 'title': 'The Obelisk Gate', 'publication_year': '2015'}, {'id': 35, 'title': 'The Power', 'publication_year': '2016'}, {'id': 39, 'title': 'The Stone Sky', 'publication_year': '2015'}])
 
 	def test_find_books_by_end_year(self):
-		self.assertEqual(self.book_data_source.books(end_year=1813), [{'id': 18, 'title': 'Pride and Prejudice', 'publication_year': '1813'}, {'id': 20, 'title': 'Sense and Sensibility', 'publication_year': '1813'}, {'id': 30, 'title': 'The Life and Opinions of Tristram Shandy, Gentleman', 'publication_year': '1759'}])
+		self.assertEqual(self.book_data_source.books(end_year=1813), [{'id': 18, 'title': 'Pride and Prejudice', 'publication_year': '1813'}, {'id': 20, 'title': 'Sense and Sensibility', 'publication_year': '1813'}])
 
 	def test_find_books_sorted_by_year(self):
-		self.assertEqual(self.book_data_source.books(end_year=1813, sort_by="year"), [{'id': 30, 'title': 'The Life and Opinions of Tristram Shandy, Gentleman', 'publication_year': '1759'}, {'id': 18, 'title': 'Pride and Prejudice', 'publication_year': '1813'}, {'id': 20, 'title': 'Sense and Sensibility', 'publication_year': '1813'}])
+		self.assertEqual(self.book_data_source.books(end_year=1813, sort_by="year"), [{'id': 18, 'title': 'Pride and Prejudice', 'publication_year': '1813'}, {'id': 20, 'title': 'Sense and Sensibility', 'publication_year': '1813'}])
 
 	def test_find_books_by_author_id_and_start_year(self):
 		self.assertEqual(self.book_data_source.books(author_id=3, end_year=2010), [{'id': 4, 'title': 'Elmer Gantry', 'publication_year': '1927'}])
@@ -70,7 +70,6 @@ class BooksDataSourceTest(unittest.TestCase):
 	#test the method "def books_for_author(self, author_id)"
 	def test_books_for_author_method(self):
 		self.assertEqual(self.book_data_source.books_for_author(author_id = 5), [{'id': 6, 'title': 'Good Omens', 'publication_year': '1990'}, {'id': 15, 'title': 'Neverwhere', 'publication_year': '1996'}])
-
 
 	# test the method "def authors_for_book(self, book_id)"
 	def test_authors_for_book_method(self):

@@ -82,10 +82,8 @@ class BooksDataSource:
 
         with open(books_filename) as csvfile:
             spamreader = csv.reader(csvfile)
-            id = 0
             for row in spamreader:
-                book_information = {'id': id, 'title': row[0] , 'publication_year': row[1]}
-                id = id+1
+                book_information = {'id': int(row[0]), 'title': row[1] , 'publication_year': row[2]}
                 books_dictionary.append(book_information)
         return books_dictionary
 
@@ -94,10 +92,8 @@ class BooksDataSource:
 
         with open(authors_filename) as csvfile:
             spamreader = csv.reader(csvfile)
-            id = 0
             for row in spamreader:
-                author_information = {'id': id, 'last_name': row[1], 'first_name': row[2],'birth_year': row[3], 'death_year': row[4]}
-                id = id+1
+                author_information = {'id': int(row[0]), 'last_name': row[1], 'first_name': row[2],'birth_year': row[3], 'death_year': row[4]}
                 authors_dictionary.append(author_information)
         return authors_dictionary
 
@@ -108,7 +104,7 @@ class BooksDataSource:
             spamreader = csv.reader(csvfile)
             id = 1
             for row in spamreader:
-                link = {'book_id': row[0], 'author_id': row[1]}
+                link = {'book_id': int(row[0]), 'author_id': int(row[1])}
                 id = id+1
                 links_dictionary.append(link)
         return links_dictionary
@@ -143,27 +139,27 @@ class BooksDataSource:
             #public year is before start year. 
             if return_books_list:
                 for book in return_books_list:
-                    if int(book["publication_year"]) < start_year:
+                    if book["publication_year"] and int(book["publication_year"]) < start_year:
                         return_books_list.remove(book)
 
             #otherwise, add books whose publish year is after the start yeat
             #to the return_book_list
             else:
                 for book in self.books_dictionary:
-                    if int(book["publication_year"]) >= start_year:
+                    if book["publication_year"] and int(book["publication_year"]) >= start_year:
                         return_books_list.append(book)
 
         if (end_year!=None):
 
             if return_books_list:
                 for book in return_books_list:
-                    if int(book["publication_year"]) > end_year:
+                    if book["publication_year"] and int(book["publication_year"]) > end_year:
                         return_books_list.remove(book)
 
 
             else:
                 for book in self.books_dictionary:
-                    if int(book["publication_year"]) <= end_year:
+                    if book["publication_year"] and int(book["publication_year"]) <= end_year:
                         return_books_list.append(book)
 
         if (search_text!=None):
@@ -317,9 +313,3 @@ class BooksDataSource:
         ''' Returns a list of all the authors of the book with the specified book ID.
             See the BooksDataSource comment for a description of how an author is represented. '''
         return self.authors(book_id=book_id)
-
-
-def main():
-        booksdatasource1 = BooksDataSource("books.csv", "authors.csv", "books_authors.csv")
-        print(booksdatasource1.authors_for_book(book_id = 5))
-main()
