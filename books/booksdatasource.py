@@ -179,6 +179,8 @@ class BooksDataSource:
         if (sort_by == "year"):
             return_books_list.sort(key=lambda item:item["publication_year"])
 
+        print(return_books_list)
+
         return return_books_list
                 
         ''' Returns a list of all the books in this data source matching all of
@@ -264,10 +266,16 @@ class BooksDataSource:
                     if author["first_name"].lower().find(search_text.lower()) != -1 or author["last_name"].lower().find(search_text.lower()) != -1:
                         return_authors_list.append(author)
 
-        return_authors_list.sort(key=lambda item:(item['last_name'], item['first_name'], item["birth_year"]))
+        
+        return_authors_list.sort(key=lambda item:(item["birth_year"],item["last_name"], item["first_name"]))
 
-        if (sort_by == "birth_year"):
-            return_authors_list.sort(key=lambda item:(item["birth_year"],item["last_name"], item["first_name"]))
+        if (sort_by != 'birth_year'):
+            print("lastname")
+            return_authors_list.sort(key=lambda item:(item['last_name'], item['first_name'], item["birth_year"]))
+            
+        # else:
+        #     print("here")
+        #     return_authors_list.sort(key=lambda item:(item["last_name"],item["first_name"], item["birth_year"]))
 
         return return_authors_list
         ''' Returns a list of all the authors in this data source matching all of the
@@ -313,3 +321,10 @@ class BooksDataSource:
         ''' Returns a list of all the authors of the book with the specified book ID.
             See the BooksDataSource comment for a description of how an author is represented. '''
         return self.authors(book_id=book_id)
+
+def main():
+    test = BooksDataSource(books_filename = "books.csv", authors_filename = "authors.csv", books_authors_link_filename = "books_authors.csv")
+    print(test.authors(search_text="u"))
+
+main()
+
