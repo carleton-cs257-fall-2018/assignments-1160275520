@@ -126,6 +126,9 @@ class BooksDataSource:
 
     def books(self, *, author_id=None, search_text=None, start_year=None, end_year=None, sort_by='title'):
 
+        if (author_id!=None and int(author_id)<0 or start_year!=None and int(start_year)<0 or end_year!=None and int(end_year)<0):
+            raise ValueError('the input should not be a negative number')
+
         return_books_list = []
         if (author_id!=None):
             book_id_list = self.find_book_id_from_author_id(author_id)
@@ -139,27 +142,27 @@ class BooksDataSource:
             #public year is before start year. 
             if return_books_list:
                 for book in return_books_list:
-                    if book["publication_year"] and int(book["publication_year"]) < start_year:
+                    if book["publication_year"] and int(book["publication_year"]) < int(start_year):
                         return_books_list.remove(book)
 
             #otherwise, add books whose publish year is after the start yeat
             #to the return_book_list
             else:
                 for book in self.books_dictionary:
-                    if book["publication_year"] and int(book["publication_year"]) >= start_year:
+                    if book["publication_year"] and int(book["publication_year"]) >= int(start_year):
                         return_books_list.append(book)
 
         if (end_year!=None):
 
             if return_books_list:
                 for book in return_books_list:
-                    if book["publication_year"] and int(book["publication_year"]) > end_year:
+                    if book["publication_year"] and int(book["publication_year"]) > int(end_year):
                         return_books_list.remove(book)
 
 
             else:
                 for book in self.books_dictionary:
-                    if book["publication_year"] and int(book["publication_year"]) <= end_year:
+                    if book["publication_year"] and int(book["publication_year"]) <= int(end_year):
                         return_books_list.append(book)
 
         if (search_text!=None):
@@ -210,11 +213,14 @@ class BooksDataSource:
 
     def find_author_id_from_book_id(self, book_id):
         for link in self.links_dictionary:
-            if int(link["book_id"]) == book_id:
+            if int(link["book_id"]) == int(book_id):
                 return link["author_id"]
         raise ValueError('sorry could not find the author_id with this id')
 
     def authors(self, *, book_id=None, search_text=None, start_year=None, end_year=None, sort_by='birth_year'):
+
+        if (book_id!=None and int(book_id)<0 or start_year!=None and int(start_year)<0 or end_year!=None and int(end_year)<0):
+            raise ValueError('the input should not be a negative number')
 
         return_authors_list = []
         if (book_id!=None):
@@ -227,14 +233,14 @@ class BooksDataSource:
             #public year is before start year. 
             if return_authors_list:
                 for author in return_authors_list:
-                    if author["death_year"] <= str(start_year):
+                    if str(author["death_year"]) <= str(start_year):
                         return_authors_list.remove(author)
 
             #otherwise, add books whose publish year is after the start yeat
             #to the return_book_list
             else:
                 for author in self.authors_dictionary:
-                    if author["death_year"] > str(start_year) or author["death_year"] == "NULL":
+                    if str(author["death_year"]) > str(start_year) or author["death_year"] == "NULL":
                         return_authors_list.append(author)
 
         if (end_year!=None):
@@ -242,14 +248,14 @@ class BooksDataSource:
             #public year is before start year. 
             if return_authors_list:
                 for author in return_authors_list:
-                    if author["death_year"] > str(end_year) or author["death_year"] == "NULL":
+                    if str(author["death_year"]) > str(end_year) or author["death_year"] == "NULL":
                         return_authors_list.remove(author)
 
             #otherwise, add books whose publish year is after the start yeat
             #to the return_book_list
             else:
                 for author in self.authors_dictionary:
-                    if author["death_year"] <= str(end_year):
+                    if author["death_year"]!="NULL" and str(author["death_year"]) <= str(end_year):
                         return_authors_list.append(author)
 
         if (search_text!=None):
@@ -313,3 +319,7 @@ class BooksDataSource:
         ''' Returns a list of all the authors of the book with the specified book ID.
             See the BooksDataSource comment for a description of how an author is represented. '''
         return self.authors(book_id=book_id)
+
+newbooksdatasource = BooksDataSource(books_filename="books.csv", authors_filename="authors.csv", books_authors_link_filename="books_authors.csv")
+output=newbooksdatasource.books(search_text="we", start_year="2000")
+print(output)
