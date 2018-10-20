@@ -1,5 +1,5 @@
 Web Application Phase 4 Homework
-    @author Yuting Su(suy@carelton.edu)
+    @author Yuting Su(suy@carleton.edu)
     @author Starr Wang(wangy3@carleton.edu)
     2018-10-14
 
@@ -9,8 +9,8 @@ CREATE TABLE songs (
     id SERIAL,
     singer_id INT, 
     song_name TEXT,
-    album_name TEXT,
-    genre TEXT,
+    album_id INT,
+    genre_id INT,
     duration INT,
     hotness FLOAT,
     year INT
@@ -19,8 +19,23 @@ CREATE TABLE songs (
 CREATE TABLE singers (
     id SERIAL,
     name TEXT,
-    location TEXT,
-    hotness FLOAT,
+    hometown_id INT,
+    hotness FLOAT
+);
+
+CREATE TABLE albums (
+    id SERIAL,
+    name TEXT
+);
+
+CREATE TABLE genres (
+    id SERIAL,
+    name TEXT
+);
+
+CREATE TABLE hometowns (
+    id SERIAL,
+    name TEXT
 );
 
 
@@ -30,22 +45,22 @@ PART2: QUERY DESIGN
 
 SYNOPSIS: Get information about the specified singer by singer_id.
 
-QUERY (GET): /singers/singer_id/<singer_id>/
+QUERY (GET): /singers/<singer_id>/
 
 RESPONSE: one dictionary which describes the singer with keys 'name', 'location' and 'hotness'. 
 
-EXAMPLE: http://musify.com/singers/singer_id/3/
+EXAMPLE: http://musify.com/singers/3/
 
 {'id':'3', 'name':'Adam_Ant', 'location':'London, England', 'hotness':0.45}
 
 2.
 SYNOPSIS: Get information about a list of singers searched by name. 
 
-QUERY (GET): /singers/name/<name>/
+QUERY (GET): /singers?name=<name>/
 
 RESPONSE: a list of dictionaries, each of which describes a singer with keys 'id' and 'name'
 
-EXAMPLE: http://musify.com/singers/name=ada/
+EXAMPLE: http://musify.com/singers?name=ada/
 
 [{'id':'23', 'name':'Ada Jane'},
  {'id':'67', 'name':'Adalberto Santiago'},
@@ -56,73 +71,91 @@ EXAMPLE: http://musify.com/singers/name=ada/
 
 SYNOPSIS: Get information about a specified song by song_id. 
 
-QUERY (GET): /songs/song_id/<song_id>/
+QUERY (GET): /songs/<song_id>/
 
 RESPONSE: one dictionary which describes the song with keys 'id', 'song_name', 'singer_name', 'album_name' ,'genre', 'duration', 'hotness' and 'year'. 
 
-EXAMPLE: http://musify.com/songs/song_id/6404/
+EXAMPLE: http://musify.com/songs/6404/
 
 {'id':'6404', 'song_name':'Standing On My Own', 'singer_name':'Agnostic Front', 'album_name':'Dead Yuppies', 'genre':'hardcore punk', 'duration':105, 'hotness':0.61, 'year':2001}
 
 
 4.
 
-SYNOPSIS: Get a list of songs by a specified singer_id. 
+SYNOPSIS: Get a list of songs by a specified singer_id, genre, or year.
 
-QUERY (GET): /songs/singer_id/<singer_id>/
+QUERY (GET): /songs
 
-RESPONSE: a list of dictionaries, each of which describes a song with keys 'id' and 'song_name'
+    GET arguments:
+    *singer_id[optional] - an integer
 
-EXAMPLE: http://musify.com/songs/singer_id/3/
+    *hotness [optional] - a real number
 
-[{'id':'3', 'song_name':'Something Girls'},
- {'id':'2861', 'song_name':'Friend Or Foe'},
- {'id':'5584', 'song_name':'Goody Two Shoes'},
- {'id':'7767', 'song_name':'Manzenera'},
- {'id':'9296', 'song_name':'Mahair Locker Room Pin-Up Boys'}]
-
-
-5.
-
-SYNOPSIS: Get information about a list of songs by genre and song hotness. The hotness of each song in reponse is larger than the search hotness. 
-
-QUERY (GET): /songs/hotness=<hotness>&genre=<genre>/
-
-RESPONSE: a list of dictionaries, each of which describes a song with keys 'id' and 'song_name'
-
-EXAMPLE: http://musify.com/songs/hotness=0.6&genre=alternative+rock/
-
-[{'id':'1036', 'song_name':'The Dynamo Of Volition [From An All Night Session]'},
- {'id':'3489', 'song_name':'No Stopping Us [Eagles Ballroom Live Version]'},
- {'id':'4642', 'song_name':'Song For A Friend (Live From Montalvo)'},
- {'id':'5520', 'song_name':'Real Love'},
- {'id':'8530', 'song_name':'Rocket'}]
+    *genre [optional] - the name of the genre to which you want 
+	   the search results restricted
+       	
+    *year [optional] - an integer; songs returned will be from
+           the specified year or later
 
 
-6.
+    4.1.
 
-SYNOPSIS: Get information about a list of songs by year and song hotness. Each song in reponse has hotness larger than the search hotness and is published in the exact search year. 
+    SYNOPSIS: Get a list of songs by a specified singer_id. 
 
-QUERY (GET): /songs/hotness=<hotness>&year=<year>/
+    QUERY (GET): /songs?singer_id=<singer_id>/
 
-RESPONSE: a list of dictionaries, each of which describes a song with keys 'id' and 'song_name'
+    RESPONSE: a list of dictionaries, each of which describes a song with keys 	'id' and 'song_name'
 
-EXAMPLE: http://musify.com/songs/hotness=0.78&year=2010/
+    EXAMPLE: http://musify.com/songs?singer_id=3/
 
-[{'id':'239', 'song_name':'Hey Daddy (Daddy's Home)',
- {'id':'554', 'song_name':'State of Emergency'},
- {'id':'1427', 'song_name':'You And Your Heart'},
- {'id':'9895', 'song_name':'I Know A Place'}]
+    [{'id':'3', 'song_name':'Something Girls'},
+	 {'id':'2861', 'song_name':'Friend Or Foe'},
+	 {'id':'5584', 'song_name':'Goody Two Shoes'},
+	 {'id':'7767', 'song_name':'Manzenera'},
+	 {'id':'9296', 'song_name':'Mahair Locker Room Pin-Up Boys'}]
 
-7.
-SYNOPSIS: Get information about a list of songs by year, song hotness and genre. Each song in reponse has hotness larger than the search hotness and is published in the exact search year. 
 
-QUERY (GET): /songs/hotness=<hotness>&year=<year>&genre=<genre>/
+    4.2
 
-RESPONSE: a list of dictionaries, each of which describes a song with keys 'id' and 'song_name'
+    SYNOPSIS: Get information about a list of songs by genre and song hotness. The hotness of each song in reponse is larger than the search hotness. 
 
-EXAMPLE: http://musify.com/songs/hotness=0.6&year=2010&genre=blue+rock/
+    QUERY (GET): /songs?hotness=<hotness>&genre=<genre>/
 
-[{'id':'554', 'song_name':'State of Emergency'},
- {'id':'8650', 'song_name':'Lullaby For The Summer'},
- {'id':'9895', 'song_name':'I Know A Place'}]
+    RESPONSE: a list of dictionaries, each of which describes a song with keys 'id' and 'song_name'
+
+    EXAMPLE: http://musify.com/songs?hotness=0.6&genre=alternative+rock/
+
+    [{'id':'1036', 'song_name':'The Dynamo Of Volition [From An All Night Session]'},
+     {'id':'3489', 'song_name':'No Stopping Us [Eagles Ballroom Live Version]'},
+     {'id':'4642', 'song_name':'Song For A Friend (Live From Montalvo)'},
+     {'id':'5520', 'song_name':'Real Love'},
+     {'id':'8530', 'song_name':'Rocket'}]
+
+
+    4.3
+
+    SYNOPSIS: Get information about a list of songs by year and song hotness. Each song in reponse has hotness larger than the search hotness and is published in the exact search year. 
+
+    QUERY (GET): /songs?hotness=<hotness>&year=<year>/
+
+    RESPONSE: a list of dictionaries, each of which describes a song with keys 'id' and 'song_name'
+
+    EXAMPLE: http://musify.com/songs?hotness=0.78&year=2010/
+
+    [{'id':'239', 'song_name':'Hey Daddy (Daddy's Home)',
+     {'id':'554', 'song_name':'State of Emergency'},
+     {'id':'1427', 'song_name':'You And Your Heart'},
+     {'id':'9895', 'song_name':'I Know A Place'}]
+
+    4.4
+    SYNOPSIS: Get information about a list of songs by year, song hotness and genre. Each song in reponse has hotness larger than the search hotness and is published in the exact search year. 
+
+    QUERY (GET): /songs?hotness=<hotness>&year=<year>&genre=<genre>/
+
+    RESPONSE: a list of dictionaries, each of which describes a song with keys 'id' and 'song_name'
+
+    EXAMPLE: http://musify.com/songs?hotness=0.6&year=2010&genre=blue+rock/
+
+    [{'id':'554', 'song_name':'State of Emergency'},
+     {'id':'8650', 'song_name':'Lullaby For The Summer'},
+     {'id':'9895', 'song_name':'I Know A Place'}]
