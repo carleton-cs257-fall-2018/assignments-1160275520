@@ -7,20 +7,19 @@ PART1: TABLE DESIGN
 
 CREATE TABLE songs (
     id SERIAL,
-    singer_id INT, 
     song_name TEXT,
+    hotness FLOAT,
     album_id INT,
     genre_id INT,
-    duration INT,
-    hotness FLOAT,
-    year INT
+    year INT,
+    duration FLOAT
 );
 
 CREATE TABLE singers (
     id SERIAL,
     name TEXT,
-    hometown_id INT,
-    hotness FLOAT
+    hotness FLOAT,
+    hometown TEXT
 );
 
 CREATE TABLE albums (
@@ -33,9 +32,10 @@ CREATE TABLE genres (
     name TEXT
 );
 
-CREATE TABLE hometowns (
+CREATE TABLE songs_singers (
     id SERIAL,
-    name TEXT
+    song_id INT,
+    singer_id INT
 );
 
 
