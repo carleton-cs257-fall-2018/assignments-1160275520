@@ -1,35 +1,20 @@
 #!/usr/bin/env python3
 '''
-    books_and_authors_converter.py
-    Jeff Ondich, 24 April 2017
-    Updated 20 April 2018
+Web Application Phase 5 Homework
+    @author Yuting Su(suy@carleton.edu)
+    @author Starr Wang(wangy3@carleton.edu)
+    2018-10-21
 
-    Sample code illustrating a simple conversion of the
-    books & authors dataset represented as in books_and_authors.csv,
-    into the books, authors, and books_authors tables (in
-    CSV form).
 
-    This is trickier than my json_to_tables.py example,
-    because in the books.csv file, the authors are implicit
-    in the list of books rather than being separated out
-    into their own data structure as they are in the
-    books_and_authors.json file.
 '''
 import sys
 import re
 import csv
 
 def load_from_books_csv_file(csv_file_name):
-    ''' Collect all the data from my sample books_and_authors.csv file,
-        assembling it into a list of books, a dictionary of authors,
-        and a list of book/author ID links. Rather than fully
-        documenting the data structures built in this function and
-        used in the later functions, I'm going to let you play around
-        with it. I recommend just sticking some print statements
-        in various places (or set some breakpoints if you use an IDE
-        for Python, like PyCharm). You might find it interesting to
-        figure out why I needed to use a dictionary for authors, but not
-        for books.
+    ''' Collect all the data from music.csv file,
+        assembling it into a list of songs, albums, genres, a dictionary of singers,
+        and a list of songs/singer ID links. 
     '''
     csv_file = open(csv_file_name)
     reader = csv.reader(csv_file)
@@ -139,8 +124,8 @@ def load_from_books_csv_file(csv_file_name):
 
 
 def save_albums_table(albums, csv_file_name):
-    ''' Save the books in CSV form, with each row containing
-        (id, title, publication year). '''
+    ''' Save the songs in CSV form, with each row containing
+        (id, name). '''
     output_file = open(csv_file_name, 'w')
     writer = csv.writer(output_file)
     for album in albums:
@@ -149,8 +134,8 @@ def save_albums_table(albums, csv_file_name):
     output_file.close()
 
 def save_genres_table(genres, csv_file_name):
-    ''' Save the books in CSV form, with each row containing
-        (id, title, publication year). '''
+    ''' Save the genres in CSV form, with each row containing
+        (id, name). '''
     output_file = open(csv_file_name, 'w')
     writer = csv.writer(output_file)
     for genre in genres:
@@ -159,8 +144,8 @@ def save_genres_table(genres, csv_file_name):
     output_file.close()
 
 def save_songs_table(songs, csv_file_name):
-    ''' Save the books in CSV form, with each row containing
-        (id, title, publication year). '''
+    ''' Save the songs in CSV form, with each row containing
+        (id, name, hotness, album_id, genre_id, release year, duration). '''
     output_file = open(csv_file_name, 'w')
     writer = csv.writer(output_file)
     for song in songs:
@@ -169,8 +154,8 @@ def save_songs_table(songs, csv_file_name):
     output_file.close()
 
 def save_songs_singers_table(songs_singers, csv_file_name):
-    ''' Save the books in CSV form, with each row containing
-        (id, title, publication year). '''
+    ''' Save the song/singer links in CSV form, with each row containing
+        (song_id, singer_id). '''
     output_file = open(csv_file_name, 'w')
     writer = csv.writer(output_file)
     for song_singer in songs_singers:
@@ -179,8 +164,8 @@ def save_songs_singers_table(songs_singers, csv_file_name):
     output_file.close()
 
 def save_singers_table(singers, csv_file_name):
-    ''' Save the books in CSV form, with each row containing
-        (id, title, publication year). '''
+    ''' Save the singers in CSV form, with each row containing
+        (id, name, hotness, hometown). '''
     output_file = open(csv_file_name, 'w')
     writer = csv.writer(output_file)
     for singer in singers:
@@ -188,30 +173,6 @@ def save_singers_table(singers, csv_file_name):
         writer.writerow(singer_row)
     output_file.close()
 
-# def save_authors_table(authors, csv_file_name):
-#     ''' Save the books in CSV form, with each row containing
-#         (id, last name, first name, birth year, death year), where
-#         death year can be NULL. '''
-#     output_file = open(csv_file_name, 'w')
-#     writer = csv.writer(output_file)
-#     for author in sorted(authors, key=authors.get):
-#         (last_name, first_name, birth_year, death_year) = author
-#         if death_year == '':
-#             death_year = 'NULL'
-#         author_id = authors[author]
-#         author_row = [author_id, last_name, first_name, birth_year, death_year]
-#         writer.writerow(author_row)
-#     output_file.close()
-
-# def save_linking_table(books_authors, csv_file_name):
-#     ''' Save the books in CSV form, with each row containing
-#         (book id, author id). '''
-#     output_file = open(csv_file_name, 'w')
-#     writer = csv.writer(output_file)
-#     for book_author in books_authors:
-#         books_authors_row = [book_author['book_id'], book_author['author_id']]
-#         writer.writerow(books_authors_row)
-#     output_file.close()
 
 if __name__ == '__main__':
     albums, genres, singers, songs, songs_singers = load_from_books_csv_file('music.csv')

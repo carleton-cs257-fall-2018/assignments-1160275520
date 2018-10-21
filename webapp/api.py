@@ -74,7 +74,7 @@ def get_singers():
 
     return json.dumps(singer_list)
 
-@app.route('/singers/<singer_id>')
+@app.route('/singer/<singer_id>')
 def get_singer_by_id(singer_id):
     '''
     Returns the singer resource for the singer with the specified id.
@@ -98,8 +98,8 @@ def get_singer_by_id(singer_id):
 
     return json.dumps(singer)
 
-@app.route('/singers?name=<singer_name>')
-def get_singers_by_name(singer_name):
+@app.route('/singers/<name>')
+def get_singers_by_name(name):
     '''
     Returns a list of all the singers with names containing
     the specified name. The match is case-insensitive.
@@ -107,10 +107,9 @@ def get_singers_by_name(singer_name):
     See get_singers above for a description of the
     singer resource representation.
     '''
-    print(singer_name)
     query = '''SELECT *
                FROM singers
-               WHERE UPPER(name) LIKE  LIKE '%%' || UPPER(%s) || '%%' 
+               WHERE UPPER(name) LIKE '%%' || UPPER(%s) || '%%'
                ORDER BY name'''
 
     singer_list = []
@@ -151,7 +150,7 @@ def get_songs():
 
     return json.dumps(song_list)
 
-@app.route('/songs/<song_id>')
+@app.route('/song/<song_id>')
 def get_song_by_id(song_id):
     '''
     Returns the song resource for the song with the specified id.
@@ -175,7 +174,7 @@ def get_song_by_id(song_id):
 
     return json.dumps(song)
 
-@app.route('/songs?name=<name>')
+@app.route('/songs/<name>')
 def get_songs_by_name(name):
     '''
     Returns a list of all the songs with names containing
@@ -186,7 +185,7 @@ def get_songs_by_name(name):
     '''
     query = '''SELECT *
                FROM songs
-               WHERE UPPER(song_name) LIKE '%%' || UPPER("world") || '%%'
+               WHERE UPPER(song_name) LIKE '%%' || UPPER(%s) || '%%'
                ORDER BY song_name'''
 
     song_list = []
