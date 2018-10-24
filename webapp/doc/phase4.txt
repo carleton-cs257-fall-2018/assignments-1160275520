@@ -1,4 +1,4 @@
-Web Application Phase 4 Homework
+1Web Application Phase 4 Homework
     @author Yuting Su(suy@carleton.edu)
     @author Starr Wang(wangy3@carleton.edu)
     2018-10-14
@@ -33,7 +33,6 @@ CREATE TABLE genres (
 );
 
 CREATE TABLE songs_singers (
-    id SERIAL,
     song_id INT,
     singer_id INT
 );
