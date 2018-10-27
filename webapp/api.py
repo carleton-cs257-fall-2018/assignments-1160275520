@@ -191,9 +191,6 @@ def get_songs():
     query_genre = flask.request.args.get('genre')
     query_singer = flask.request.args.get('singer_name')
 
-
-
-
     query_string = ""
     from_string = "songs"
 

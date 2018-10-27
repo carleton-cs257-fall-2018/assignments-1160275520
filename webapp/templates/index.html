@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='books.css') }}" />
+    <link rel="stylesheet" type="text/css" href="/static/index.css" />
+    <script>var api_port = {{ api_port }};</script>
+    <script type="text/javascript" src="{{ url_for('static', filename='books.js') }}" defer></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <title>Musify</title>
+
+    <style>
+
+      html { 
+        background: url(https://wonderopolis.org/wp-content/uploads/2011/10/psychdelic-design-on-t-shirt_shutterstock_3198323.jpg) no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+      body{
+        padding-top: 75px;
+      }
+
+      .search-container{
+        width: 490px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      input#search-bar{
+        margin: 0 auto;
+        width: 100%;
+        height: 45px;
+        padding: 0 20px;
+        font-size: 1rem;
+        border: 1px solid #D0CFCE;
+        outline: none;
+        &:focus{
+          border: 1px solid #008ABF;
+          transition: 0.35s ease;
+          color: #008ABF;
+          &::-webkit-input-placeholder{
+            transition: opacity 0.45s ease; 
+            opacity: 0;
+           }
+          &::-moz-placeholder {
+            transition: opacity 0.45s ease; 
+            opacity: 0;
+           }
+          &:-ms-placeholder {
+           transition: opacity 0.45s ease; 
+           opacity: 0;
+           }    
+         }
+       }
+
+      .search-icon{
+        position: relative;
+        float: right;
+        width: 75px;
+        height: 75px;
+        top: -62px;
+        right: -45px;
+      }
+
+      .center {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+      }
+
+      .title{
+        text-align:center;
+        color: white
+      }
+
+
+    </style>
+</head>
+
+<body>
+
+  <div class="center">
+    <h1 class="title"> Musify </h1>
+    <form class="search-container">
+      <input type="text" id="search-bar" placeholder="Explore music by entering your favorite song or singer name">
+      <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
+    </form>
+  </div>
+
+  </body>
+</html>
