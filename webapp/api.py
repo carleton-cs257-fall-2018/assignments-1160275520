@@ -76,6 +76,28 @@ def get_singer_by_id(singer_id):
 
     return json.dumps(singer)
 
+@app.route('/singers/')
+def get_all_singers():
+    '''
+    Returns the singer resources.
+
+    See get_singer above for a description of the
+    singer resource representation.
+    '''
+    query = '''SELECT * FROM singers'''
+    singer_list = []
+    connection = get_connection()
+    if connection is not None:
+        try:
+            for row in get_select_query_results(connection, query):
+                singer = {"id":row[0], "singer_name":row[1], "hotness":row[2], "hometown":row[3]}
+                singer_list.append(singer)
+        except Exception as e:
+            print(e, file=sys.stderr)
+        connection.close()
+
+    return json.dumps(singer_list)
+
 @app.route('/singers')
 def get_singers():
     '''
@@ -120,6 +142,8 @@ def get_singers():
                FROM singers
                WHERE ''' + query_string
 
+    print(query)
+
     connection = get_connection()
     if connection is not None:
         try:
@@ -156,6 +180,29 @@ def get_song_by_id(song_id):
         connection.close()
 
     return json.dumps(song)
+
+@app.route('/songs/')
+def get_all_songs():
+    '''
+    Returns the  all songs resource.
+
+    See get_songs above for a description of the
+    song resource representation.
+    '''
+    query = '''SELECT * FROM songs'''
+
+    song_list = []
+    connection = get_connection()
+    if connection is not None:
+        try:
+            for row in get_select_query_results(connection, query):
+                song = {"id":row[0], "song_name":row[1], "hotness":row[2],"album_id":row[3], "genre_id":row[4], "release_year":row[5], "duration": row[6]}
+                song_list.append(song)
+        except Exception as e:
+            print(e, file=sys.stderr)
+        connection.close()
+
+    return json.dumps(song_list)
 
 @app.route('/songs')
 def get_songs():
