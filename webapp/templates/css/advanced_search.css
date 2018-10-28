@@ -1,0 +1,67 @@
+html { 
+  background: url(https://zap.aeiou.pt/wp-content/uploads/2017/04/7b8bfdb094b7e7090f5ec4d1a7dd9e68.jpeg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+section{
+  background: cadetblue;
+  padding: 3%
+}
+
+.title{
+  text-align:center;
+  color: white;
+}
+/* 
+-----------------------
+Modified Default Class 
+-----------------------
+*/
+
+.tab-content{
+  background-color: #fff6;
+  padding: 20px;
+}
+.form-control{
+  background-color: #fff4;
+}
+/*NAV LINK */
+.nav-link{
+  color: black;
+}
+.active {
+  font-weight: bolder;
+  color: black!important;
+}
+input:focus{
+
+  background-color: cadetblue!important;
+}
+
+/* 
+--------------------
+Custom New Class 
+--------------------
+*/
+
+.btn-search:hover{
+  background:black;
+  color:  #ffd29c;
+}
+.searchInput{
+  height: 3em;
+}
+
+
+/* | BOOTSTRAP CLASS | col-md-* | Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { 
+
+  .paddingRightClear{
+    padding-right: 0px!important;
+  }
+}
+
+

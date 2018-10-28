@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script>var api_port = {{ api_port }};</script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <title>Advanced Search</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.6/css/all.css'>
+    <link rel="stylesheet" href="css/advanced_search.css"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+  <div class="center">
+    <section>
+
+      <h1 class="title"> Musify </h1>
+
+      <div class="col-10 offset-1">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Search Songs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Search Singers</a>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-music userIcon"></span>
+                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Song name">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-user userIcon"></span>
+                <input type="text" class="form-control searchInput bookInput" aria-label="Large" placeholder="Singer name">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-calendar userIcon"></span>
+                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Year">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <i class="fab fa-hotjar"></i>
+                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Hotness">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-images userIcon"></span>
+                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Album">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-key userIcon"></span>
+                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Genre">
+              </div>
+              <div class="col-md-12">
+                <button type="button" class="btn btn-info">Search</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="row">
+              <div class="col-md-4 paddingRightClear">
+                <span class="fa fa-user userIcon"></span>
+                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Singer Name">
+              </div>
+              <div class="col-md-4 paddingRightClear">
+                <i class="fab fa-hotjar"></i>
+                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Hotness">
+              </div>
+              <div class="col-md-4 paddingRightClear">
+                <span class="fa fa-location-arrow userIcon"></span>
+                <input type="text" class="form-control searchInput" aria-label="Large" placeholder=" Hometown">
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-info">Search</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+  </body>
+
+
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
+
+</html>

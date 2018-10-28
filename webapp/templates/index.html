@@ -13,12 +13,13 @@
     <style>
 
       html { 
-        background: url(https://wonderopolis.org/wp-content/uploads/2011/10/psychdelic-design-on-t-shirt_shutterstock_3198323.jpg) no-repeat center center fixed; 
+        background: url(https://zap.aeiou.pt/wp-content/uploads/2017/04/7b8bfdb094b7e7090f5ec4d1a7dd9e68.jpeg) no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
       }
+
       body{
         padding-top: 75px;
       }
@@ -76,6 +77,46 @@
         color: white
       }
 
+      .button {
+        display: inline-block;
+        border-radius: 4px;
+        background-color: cadetblue;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 15px;
+        padding: 10px;
+        width: 200px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: -10% 35%;        
+        }
+
+        .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+        }
+
+        .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+        }
+
+        .button:hover span {
+        padding-right: 25px;
+        }
+
+        .button:hover span:after {
+        opacity: 1;
+        right: 0;
+        }
+
 
     </style>
 </head>
@@ -85,10 +126,10 @@
   <div class="center">
     <h1 class="title"> Musify </h1>
     <form class="search-container">
-      <input type="text" id="search-bar" placeholder="Explore music by entering your favorite song or singer name">
+      <input type="text" id="search-bar" placeholder="Explore music by entering your favorite song name">
       <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
     </form>
-  </div>
+    <button class="button" style="vertical-align:middle"><span>Advanced Search</span></button>  </div>
 
   </body>
 </html>
