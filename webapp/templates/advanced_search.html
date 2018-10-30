@@ -3,11 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <script>var api_port = {{ api_port }};</script>
+    <script type="text/javascript" src="{{ url_for('static', filename='musify.js') }}" defer></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
     <title>Advanced Search</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.6/css/all.css'>
-    <link rel="stylesheet" href="css/advanced_search.css"> 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='advanced_search.css')}}"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -33,30 +34,30 @@
             <div class="row">
               <div class="col-md-2 paddingRightClear">
                 <span class="fa fa-music userIcon"></span>
-                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Song name">
+                <input type="text" id="song_name" class="form-control searchInput" aria-label="Large" placeholder="Song name">
               </div>
               <div class="col-md-2 paddingRightClear">
                 <span class="fa fa-user userIcon"></span>
-                <input type="text" class="form-control searchInput bookInput" aria-label="Large" placeholder="Singer name">
+                <input type="text" id="singer" class="form-control searchInput bookInput" aria-label="Large" placeholder="Singer name">
               </div>
               <div class="col-md-2 paddingRightClear">
                 <span class="fa fa-calendar userIcon"></span>
-                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Year">
+                <input type="text" id="year" class="form-control searchInput" aria-label="Large" placeholder="Year">
               </div>
               <div class="col-md-2 paddingRightClear">
                 <i class="fab fa-hotjar"></i>
-                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Hotness">
+                <input type="text" id="hotness" class="form-control searchInput" aria-label="Large" placeholder="Hotness">
               </div>
               <div class="col-md-2 paddingRightClear">
                 <span class="fa fa-images userIcon"></span>
-                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Album">
+                <input type="text" id="album" class="form-control searchInput" aria-label="Large" placeholder="Album">
               </div>
               <div class="col-md-2 paddingRightClear">
                 <span class="fa fa-key userIcon"></span>
-                <input type="text" class="form-control searchInput" aria-label="Large" placeholder="Genre">
+                <input type="text" id="genre" class="form-control searchInput" aria-label="Large" placeholder="Genre">
               </div>
               <div class="col-md-12">
-                <button type="button" class="btn btn-info">Search</button>
+                <button type="button" id="advanced_songs" class="btn btn-info">Search</button>
               </div>
             </div>
           </div>

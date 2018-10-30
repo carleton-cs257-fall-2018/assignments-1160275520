@@ -20,6 +20,12 @@ def get_main_page():
     global api_port
     return flask.render_template('index.html', api_port=api_port)
 
+@app.route('/advanced') 
+def get_advanced_page():
+    ''' This is the only route intended for human users '''
+    global api_port
+    return flask.render_template('advanced_search.html', api_port=api_port)
+
 if __name__ == '__main__':
     if len(sys.argv) != 4:
         print('Usage: {0} host port api-port'.format(sys.argv[0]), file=sys.stderr)

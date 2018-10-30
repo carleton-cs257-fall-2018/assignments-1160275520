@@ -31,11 +31,24 @@
 initialize();
 
 function initialize() {
-    var element = document.getElementById('search-icon');
-    if (element) {
-        element.onclick = onSingersButtonClicked;
+    // var element = document.getElementById('search-icon');
+    // if (element) {
+    //     element.onclick = onSongsButtonClicked;
+    // }
+    var singers = document.getElementById('search-icon');
+    if (singers) {
+        singers.onclick = onSingersButtonClicked;
+    }
+    var advanced_songs = document.getElementById('advanced_songs');
+    if (advanced_songs) {
+        advanced_songs.onclick = onAdvancedSongsButtonClicked;
     }
 }
+
+// function onSubmitClicked() {
+//     var searchWord = document.getElementById('search-bar').value;
+//     console.log(searchWord)
+// }
 
 function getBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
@@ -44,9 +57,9 @@ function getBaseURL() {
 }
 
 function onSingersButtonClicked() {
-    var url = getBaseURL() + '/singers/';
-    console.log(url)
+    var searchWord = document.getElementById('search-bar').value;
 
+    var url = getBaseURL() + '/singers?singer_name=' + searchWord;
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
 
@@ -62,7 +75,7 @@ function onSingersButtonClicked() {
         for (var k = 0; k < singersList.length; k++) {
             tableBody += '<tr>';
 
-            tableBody += '<td><a onclick="getsinger(' + singersList[k]['id'] + ",'"
+            tableBody += '<td><a onclick="getSinger(' + singersList[k]['id'] + ",'"
                             + singersList[k]['singer_name'] + "')\">"
                             + singersList[k]['singer_name'] + '</a></td>';
             tableBody += '</td>';
@@ -74,15 +87,15 @@ function onSingersButtonClicked() {
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
+        console.log("singers1")
     })
-
     // Log the error if anything went wrong during the fetch.
     .catch(function(error) {
         console.log(error);
     });
 }
 
-function getSinger(signerID, singerName) {
+function getSinger(singerID, singerName) {
     // Very similar pattern to onAuthorsButtonClicked, so I'm not
     // repeating those comments here. Read through this code
     // and see if it makes sense to you.
@@ -93,18 +106,17 @@ function getSinger(signerID, singerName) {
     .then((response) => response.json())
 
     .then(function(singerInfo) {
-        var tableBody = '<tr><th>' + singerName + '</th></tr>';
-        for (var k = 0; k < singerInfo.length; k++) {
-            tableBody += '<tr>';
-            tableBody += '<td>' + singerInfo[k]['name'] + '</td>';
-            tableBody += '<td>' + singerInfo[k]['hotness'] + '</td>';
-            tableBody += '<td>' + singerInfo[k]['hometown'] + '</td>';
-            tableBody += '</tr>';
-        }
+        var tableBody = '<tr><th>' + singerName + '</th></tr>';       
+        tableBody += '<tr>';
+        tableBody += '<td>' + singerInfo['singer_name'] + '</td>';
+        tableBody += '<td>' + singerInfo['hotness'] + '</td>';
+        tableBody += '<td>' + singerInfo['hometown'] + '</td>';
+        tableBody += '</tr>';        
         var resultsTableElement = document.getElementById('results_table');
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
+        console.log("singers2")
     })
 
     .catch(function(error) {
@@ -113,7 +125,9 @@ function getSinger(signerID, singerName) {
 }
 
 function onSongsButtonClicked() {
-    var url = getBaseURL() + '/songs/';
+    var searchWord = document.getElementById('search-bar').value;
+
+    var url = getBaseURL() + '/songs?song_name=' + searchWord;
 
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -130,9 +144,9 @@ function onSongsButtonClicked() {
         for (var k = 0; k < songsList.length; k++) {
             tableBody += '<tr>';
 
-            tableBody += '<td><a onclick="getsong(' + songsList[k]['id'] + ",'"
-                            + songsList[k]['name'] + "')\">"
-                            + songsList[k]['name'] + '</a></td>';
+            tableBody += '<td><a onclick="getSong(' + songsList[k]['id'] + ",'"
+                            + songsList[k]['song_name'] + "')\">"
+                            + songsList[k]['song_name'] + '</a></td>';
             tableBody += '</td>';
             tableBody += '</tr>';
         }
@@ -150,7 +164,10 @@ function onSongsButtonClicked() {
     });
 }
 
-function getsong(songID, songName) {
+function getSong(songID, songName) {
+
+    var searchWord = document.getElementById('search-bar').value;
+    console.log(searchWord)
     // Very similar pattern to onAuthorsButtonClicked, so I'm not
     // repeating those comments here. Read through this code
     // and see if it makes sense to you.
@@ -162,20 +179,19 @@ function getsong(songID, songName) {
 
     .then(function(songInfo) {
         var tableBody = '<tr><th>' + songName + '</th></tr>';
-        for (var k = 0; k < songInfo.length; k++) {
-            tableBody += '<tr>';
-            tableBody += '<td>' + songInfo[k]['name'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['hotness'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['album_id'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['genre_id'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['year'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['duration'] + '</td>';
-            tableBody += '</tr>';
-        }
+        tableBody += '<tr>';
+        tableBody += '<td>' + songInfo['song_name'] + '</td>';
+        tableBody += '<td>' + songInfo['hotness'] + '</td>';
+        tableBody += '<td>' + songInfo['album_id'] + '</td>';
+        tableBody += '<td>' + songInfo['genre_id'] + '</td>';
+        tableBody += '<td>' + songInfo['release_year'] + '</td>';
+        tableBody += '<td>' + songInfo['duration'] + '</td>';
+        tableBody += '</tr>';
         var resultsTableElement = document.getElementById('results_table');
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
+        console.log("song2")
     })
 
     .catch(function(error) {
@@ -184,12 +200,17 @@ function getsong(songID, songName) {
 }
 
 function onAdvancedSongsButtonClicked() {
+    var song_name = document.getElementById('song_name');
+    var singer = document.getElementById('singer');
     var hotness = document.getElementById('hotness');
-    var album_name = document.getElementById('album_name');
-    var genre_name = document.getElementById('genre_name');
+    var album_name = document.getElementById('album');
+    var genre_name = document.getElementById('genre');
     var year = document.getElementById('year');
 
     var url = getBaseURL() + '/songs?';
+    if (song_name){
+        url = url + 'song_name=' + song_name;
+    }
     if (album_name){
         url = url + 'album=' + album_name;
     }
@@ -203,7 +224,6 @@ function onAdvancedSongsButtonClicked() {
         url = url + 'year=' + year;
     }
 
-
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
 
@@ -219,9 +239,9 @@ function onAdvancedSongsButtonClicked() {
         for (var k = 0; k < songsList.length; k++) {
             tableBody += '<tr>';
 
-            tableBody += '<td><a onclick="getsong(' + songsList[k]['id'] + ",'"
-                            + songsList[k]['name'] + "')\">"
-                            + songsList[k]['name'] + '</a></td>';
+            tableBody += '<td><a onclick="getSong(' + songsList[k]['id'] + ",'"
+                            + songsList[k]['song_name'] + "')\">"
+                            + songsList[k]['song_name'] + '</a></td>';
             tableBody += '</td>';
             tableBody += '</tr>';
         }
@@ -239,35 +259,35 @@ function onAdvancedSongsButtonClicked() {
     });
 }
 
-function getsong(songID, songName) {
-    // Very similar pattern to onAuthorsButtonClicked, so I'm not
-    // repeating those comments here. Read through this code
-    // and see if it makes sense to you.
-    var url = getBaseURL() + '/songs/' + songID;
+// function getsong(songID, songName) {
+//     // Very similar pattern to onAuthorsButtonClicked, so I'm not
+//     // repeating those comments here. Read through this code
+//     // and see if it makes sense to you.
+//     var url = getBaseURL() + '/songs/' + songID;
 
-    fetch(url, {method: 'get'})
+//     fetch(url, {method: 'get'})
 
-    .then((response) => response.json())
+//     .then((response) => response.json())
 
-    .then(function(songInfo) {
-        var tableBody = '<tr><th>' + songName + '</th></tr>';
-        for (var k = 0; k < songInfo.length; k++) {
-            tableBody += '<tr>';
-            tableBody += '<td>' + songInfo[k]['name'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['hotness'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['album_id'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['genre_id'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['year'] + '</td>';
-            tableBody += '<td>' + songInfo[k]['duration'] + '</td>';
-            tableBody += '</tr>';
-        }
-        var resultsTableElement = document.getElementById('results_table');
-        if (resultsTableElement) {
-            resultsTableElement.innerHTML = tableBody;
-        }
-    })
+//     .then(function(songInfo) {
+//         var tableBody = '<tr><th>' + songName + '</th></tr>';
+//         for (var k = 0; k < songInfo.length; k++) {
+//             tableBody += '<tr>';
+//             tableBody += '<td>' + songInfo[k]['name'] + '</td>';
+//             tableBody += '<td>' + songInfo[k]['hotness'] + '</td>';
+//             tableBody += '<td>' + songInfo[k]['album_id'] + '</td>';
+//             tableBody += '<td>' + songInfo[k]['genre_id'] + '</td>';
+//             tableBody += '<td>' + songInfo[k]['year'] + '</td>';
+//             tableBody += '<td>' + songInfo[k]['duration'] + '</td>';
+//             tableBody += '</tr>';
+//         }
+//         var resultsTableElement = document.getElementById('results_table');
+//         if (resultsTableElement) {
+//             resultsTableElement.innerHTML = tableBody;
+//         }
+//     })
 
-    .catch(function(error) {
-        console.log(error);
-    });
-}
+//     .catch(function(error) {
+//         console.log(error);
+//     });
+// }
