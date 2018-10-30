@@ -7,11 +7,9 @@ This library comes from the Million Song Dataset. There are 10000 rows, each of 
 
 Alice wants to find a list of Adele’s songs.
 Bob wants to find a list of alternative rock songs.
-Claire really likes a song called She Used To Be Mine, but she forgets the name of the singer and would like to know.
+Claire wants to find a list of songs that are relearsed in 1998 and include the word "love" in the song name.
 Dan wants to know the date when Twist and Shout was released.
 Evan is trying to find where the band The Box Tops comes from.
 Frank is wondering which album includes the song Drop of Rain.
-Grace would like to know the top 10 hottest songs in the music library.
-Hannah would like to know the tempo of the song Pink.
-Irene is curious about what the longest song is in this music library.
-Jack wants to know the time signature of I Can’t Be Satisfied.
+Grace wants to find a list of singers from New York.
+Hannah would like to know the duration of the song Pink.

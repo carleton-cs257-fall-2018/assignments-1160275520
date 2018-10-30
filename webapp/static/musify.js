@@ -117,7 +117,6 @@ function getSinger(singerID, singerName) {
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
-        console.log("singers2")
     })
 
     .catch(function(error) {
@@ -169,9 +168,6 @@ function onSongsButtonClicked() {
 }
 
 function getSong(songID, songName) {
-
-    var searchWord = document.getElementById('search-bar').value;
-    console.log(searchWord)
     // Very similar pattern to onAuthorsButtonClicked, so I'm not
     // repeating those comments here. Read through this code
     // and see if it makes sense to you.
@@ -193,7 +189,6 @@ function getSong(songID, songName) {
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
-        console.log("song2")
     })
 
     .catch(function(error) {
@@ -223,7 +218,7 @@ function onAdvancedSongsButtonClicked() {
         if (hasKey == true){
             url = url+"&";
         }
-        url = url + 'singer=' + singer;
+        url = url + 'singer_name=' + singer;
         hasKey = true;
     }
     if (album_name){
