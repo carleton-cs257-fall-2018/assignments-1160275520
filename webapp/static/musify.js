@@ -31,24 +31,24 @@
 initialize();
 
 function initialize() {
-    // var element = document.getElementById('search-icon');
-    // if (element) {
-    //     element.onclick = onSongsButtonClicked;
-    // }
-    var singers = document.getElementById('search-icon');
+
+    var singers = document.getElementById('singers');
     if (singers) {
         singers.onclick = onSingersButtonClicked;
+    }
+    var songs = document.getElementById('songs');
+    if (songs) {
+        songs.onclick = onSongsButtonClicked;
     }
     var advanced_songs = document.getElementById('advanced_songs');
     if (advanced_songs) {
         advanced_songs.onclick = onAdvancedSongsButtonClicked;
     }
+    var advanced_singers = document.getElementById('advanced_singers');
+    if (advanced_singers) {
+        advanced_singers.onclick = onAdvancedSingersButtonClicked;
+    }
 }
-
-// function onSubmitClicked() {
-//     var searchWord = document.getElementById('search-bar').value;
-//     console.log(searchWord)
-// }
 
 function getBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
@@ -73,13 +73,15 @@ function onSingersButtonClicked() {
         // Build the table body.
         var tableBody = '';
         for (var k = 0; k < singersList.length; k++) {
-            tableBody += '<tr>';
-
+            if (k%4 == 0){
+                tableBody += '<tr>';
+            }
             tableBody += '<td><a onclick="getSinger(' + singersList[k]['id'] + ",'"
                             + singersList[k]['singer_name'] + "')\">"
                             + singersList[k]['singer_name'] + '</a></td>';
-            tableBody += '</td>';
-            tableBody += '</tr>';
+            if ((k+1)%4 == 0){
+                tableBody += '</tr>';
+            }            
         }
 
         // Put the table body we just built inside the table that's already on the page.
@@ -87,7 +89,6 @@ function onSingersButtonClicked() {
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
-        console.log("singers1")
     })
     // Log the error if anything went wrong during the fetch.
     .catch(function(error) {
@@ -106,7 +107,7 @@ function getSinger(singerID, singerName) {
     .then((response) => response.json())
 
     .then(function(singerInfo) {
-        var tableBody = '<tr><th>' + singerName + '</th></tr>';       
+        var tableBody = '<tr><th scope="col">Singer Name</th><th scope="col">Hotness</th><th scope="col">Hometown</th></tr>'      
         tableBody += '<tr>';
         tableBody += '<td>' + singerInfo['singer_name'] + '</td>';
         tableBody += '<td>' + singerInfo['hotness'] + '</td>';
@@ -142,13 +143,16 @@ function onSongsButtonClicked() {
         // Build the table body.
         var tableBody = '';
         for (var k = 0; k < songsList.length; k++) {
-            tableBody += '<tr>';
-
+            if (k%4 == 0){
+                tableBody += '<tr>';
+            }
             tableBody += '<td><a onclick="getSong(' + songsList[k]['id'] + ",'"
                             + songsList[k]['song_name'] + "')\">"
                             + songsList[k]['song_name'] + '</a></td>';
             tableBody += '</td>';
-            tableBody += '</tr>';
+            if ((k+1)%4 == 0){
+                tableBody += '<tr>';
+            }
         }
 
         // Put the table body we just built inside the table that's already on the page.
@@ -178,12 +182,10 @@ function getSong(songID, songName) {
     .then((response) => response.json())
 
     .then(function(songInfo) {
-        var tableBody = '<tr><th>' + songName + '</th></tr>';
+        var tableBody = '<tr><th scope="col">Song Name</th><th scope="col">Hotness</th><th scope="col">Release Year</th><th scope="col">Duration</th></tr>';
         tableBody += '<tr>';
         tableBody += '<td>' + songInfo['song_name'] + '</td>';
         tableBody += '<td>' + songInfo['hotness'] + '</td>';
-        tableBody += '<td>' + songInfo['album_id'] + '</td>';
-        tableBody += '<td>' + songInfo['genre_id'] + '</td>';
         tableBody += '<td>' + songInfo['release_year'] + '</td>';
         tableBody += '<td>' + songInfo['duration'] + '</td>';
         tableBody += '</tr>';
@@ -200,28 +202,57 @@ function getSong(songID, songName) {
 }
 
 function onAdvancedSongsButtonClicked() {
-    var song_name = document.getElementById('song_name');
-    var singer = document.getElementById('singer');
-    var hotness = document.getElementById('hotness');
-    var album_name = document.getElementById('album');
-    var genre_name = document.getElementById('genre');
-    var year = document.getElementById('year');
+    var song_name = document.getElementById('song_name').value;
+    var singer = document.getElementById('singer').value;
+    var song_hotness = document.getElementById('song_hotness').value;
+    var album_name = document.getElementById('album').value;
+    var genre_name = document.getElementById('genre').value;
+    var year = document.getElementById('year').value;
+
+    var hasKey = false;
 
     var url = getBaseURL() + '/songs?';
     if (song_name){
+        if (hasKey == true){
+            url = url+"&";
+        }
         url = url + 'song_name=' + song_name;
+        hasKey = true;
+    }
+    if (singer){
+        if (hasKey == true){
+            url = url+"&";
+        }
+        url = url + 'singer=' + singer;
+        hasKey = true;
     }
     if (album_name){
+        if (hasKey == true){
+            url = url+"&";
+        }
         url = url + 'album=' + album_name;
+        hasKey = true;
     }
     if(genre_name){
+        if (hasKey == true){
+            url = url+"&";
+        }
         url = url + 'genre=' + genre_name;
+        hasKey = true;
     }
-    if(hotness){
-        url = url + 'hotness=' + hotness;
+    if(song_hotness){
+        if (hasKey == true){
+            url = url+"&";
+        }
+        url = url + 'hotness=' + song_hotness;
+        hasKey = true;
     }  
     if(year){
+        if (hasKey == true){
+            url = url+"&";
+        }
         url = url + 'year=' + year;
+        hasKey = true;
     }
 
     // Send the request to the Books API /authors/ endpoint
@@ -237,13 +268,16 @@ function onAdvancedSongsButtonClicked() {
         // Build the table body.
         var tableBody = '';
         for (var k = 0; k < songsList.length; k++) {
-            tableBody += '<tr>';
-
+            if (k%4 == 0){
+                tableBody += '<tr>';
+            }
             tableBody += '<td><a onclick="getSong(' + songsList[k]['id'] + ",'"
                             + songsList[k]['song_name'] + "')\">"
                             + songsList[k]['song_name'] + '</a></td>';
             tableBody += '</td>';
-            tableBody += '</tr>';
+            if ((k+1)%4 == 0){
+                tableBody += '<tr>';
+            }
         }
 
         // Put the table body we just built inside the table that's already on the page.
@@ -259,35 +293,67 @@ function onAdvancedSongsButtonClicked() {
     });
 }
 
-// function getsong(songID, songName) {
-//     // Very similar pattern to onAuthorsButtonClicked, so I'm not
-//     // repeating those comments here. Read through this code
-//     // and see if it makes sense to you.
-//     var url = getBaseURL() + '/songs/' + songID;
+function onAdvancedSingersButtonClicked() {
+    var singer_name = document.getElementById('singer_name').value;
+    var singer_hotness = document.getElementById('singer_hotness').value;
+    var hometown = document.getElementById('hometown').value;
 
-//     fetch(url, {method: 'get'})
+    var hasKey = false;
 
-//     .then((response) => response.json())
+    var url = getBaseURL() + '/singers?';
+    if (singer_name){
+        if (hasKey == true){
+            url = url+"&";
+        }
+        url = url + 'singer_name=' + singer_name;
+        hasKey = true;
+    }
+    if(singer_hotness){
+        if (hasKey == true){
+            url = url+"&";
+        }
+        url = url + 'hotness=' + singer_hotness;
+        hasKey = true;
+    }  
+    if(hometown){
+        if (hasKey == true){
+            url = url+"&";
+        }
+        url = url + 'hometown=' + hometown;
+        hasKey = true;
+    }
 
-//     .then(function(songInfo) {
-//         var tableBody = '<tr><th>' + songName + '</th></tr>';
-//         for (var k = 0; k < songInfo.length; k++) {
-//             tableBody += '<tr>';
-//             tableBody += '<td>' + songInfo[k]['name'] + '</td>';
-//             tableBody += '<td>' + songInfo[k]['hotness'] + '</td>';
-//             tableBody += '<td>' + songInfo[k]['album_id'] + '</td>';
-//             tableBody += '<td>' + songInfo[k]['genre_id'] + '</td>';
-//             tableBody += '<td>' + songInfo[k]['year'] + '</td>';
-//             tableBody += '<td>' + songInfo[k]['duration'] + '</td>';
-//             tableBody += '</tr>';
-//         }
-//         var resultsTableElement = document.getElementById('results_table');
-//         if (resultsTableElement) {
-//             resultsTableElement.innerHTML = tableBody;
-//         }
-//     })
+    // Send the request to the Books API /authors/ endpoint
+    fetch(url, {method: 'get'})
 
-//     .catch(function(error) {
-//         console.log(error);
-//     });
-// }
+    // When the results come back, transform them from JSON string into
+    // a Javascript object (in this case, a list of author dictionaries).
+    .then((response) => response.json())
+
+    // Once you have your list of author dictionaries, use it to build
+    // an HTML table displaying the author names and lifespan.
+    .then(function(singersList) {
+        // Build the table body.
+        var tableBody = '';
+        for (var k = 0; k < singersList.length; k++) {
+            if (k%4 == 0){
+                tableBody += '<tr>';
+            }
+            tableBody += '<td><a onclick="getSinger(' + singersList[k]['id'] + ",'"
+                            + singersList[k]['singer_name'] + "')\">"
+                            + singersList[k]['singer_name'] + '</a></td>';
+            if ((k+1)%4 == 0){
+                tableBody += '</tr>';
+            }            
+        }
+        // Put the table body we just built inside the table that's already on the page.
+        var resultsTableElement = document.getElementById('results_table');
+        if (resultsTableElement) {
+            resultsTableElement.innerHTML = tableBody;
+        }
+    })
+    // Log the error if anything went wrong during the fetch.
+    .catch(function(error) {
+        console.log(error);
+    });
+}

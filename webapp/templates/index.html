@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='musify.css') }}" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
     <script>var api_port = {{ api_port }};</script>
     <script type="text/javascript" src="{{ url_for('static', filename='musify.js') }}" defer></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
@@ -115,19 +116,83 @@
         right: 0;
         }
 
+        .buttons{
+            text-align: center;
+            padding: 6% 0%;
+        }
+
 
     </style>
 </head>
 
-<body>  
+<body style="background: unset">
+
   <div class="center">
     <h1 class="title"> Musify </h1>
-    <form class="search-container" method="GET">
-      <input type="text" id="search-bar" placeholder="Explore music by entering your favorite song name" value="">
-      <a><img class="search-icon" id="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
+    <form class="search-container">
+      <input type="text" id="search-bar" placeholder="Explore music by entering your favorite song name">
+      <div class="buttons">
+        <button type="button" id="singers" class="btn btn-dark">Search Singers</button>
+        <button type="button" id="songs" class="btn btn-info">Search Songs</button>
+      </div>
     </form>
     <button class="button" style="vertical-align:middle"><span>Advanced Search</span></button>  </div>
-    <P><table id="results_table"></table>></P>
+
+    <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-music userIcon"></span>
+                <input type="text" id="song_name" class="form-control searchInput" aria-label="Large" placeholder="Song name">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-user userIcon"></span>
+                <input type="text" id="singer" class="form-control searchInput bookInput" aria-label="Large" placeholder="Singer name">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-calendar userIcon"></span>
+                <input type="text" id="year" class="form-control searchInput" aria-label="Large" placeholder="Year">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <i class="fab fa-hotjar"></i>
+                <input type="text" id="song_hotness" class="form-control searchInput" aria-label="Large" placeholder="Hotness">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-images userIcon"></span>
+                <input type="text" id="album" class="form-control searchInput" aria-label="Large" placeholder="Album">
+              </div>
+              <div class="col-md-2 paddingRightClear">
+                <span class="fa fa-key userIcon"></span>
+                <input type="text" id="genre" class="form-control searchInput" aria-label="Large" placeholder="Genre">
+              </div>
+              <div class="col-md-12">
+                <button type="button" id="advanced_songs" class="btn btn-info">Search</button>
+              </div>
+            </div>
+          </div>
+
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="row">
+              <div class="col-md-4 paddingRightClear">
+                <span class="fa fa-user userIcon"></span>
+                <input type="text" id="singer_name" class="form-control searchInput" aria-label="Large" placeholder="Singer Name">
+              </div>
+              <div class="col-md-4 paddingRightClear">
+                <i class="fab fa-hotjar"></i>
+                <input type="text" id="singer_hotness" class="form-control searchInput" aria-label="Large" placeholder="Hotness">
+              </div>
+              <div class="col-md-4 paddingRightClear">
+                <span class="fa fa-location-arrow userIcon"></span>
+                <input type="text" id="hometown" class="form-control searchInput" aria-label="Large" placeholder="Hometown">
+              </div>
+              <div class="col-md-2">
+                <button type="button" id="advanced_singers" class="btn btn-info">Search</button>
+              </div>
+            </div>
+          </div>
+
+    </div>
+    <P><table id="results_table" class="table table-striped table-info"></table></P>
   </body>
 </html>
 
