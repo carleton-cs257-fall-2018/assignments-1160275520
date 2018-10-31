@@ -1,0 +1,86 @@
+/*
+    Web Application Phase 6 Homework
+    advanced_search.css
+    @author Yuting Su(suy@carleton.edu)
+    @author Starr Wang(wangy3@carleton.edu)
+    Updated 20 Oct 2018
+
+    This is the CSS file for advanced.html, which is the advanced search page of musify website.
+*/
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+}
+
+.tablebody {
+  color: #0B86B5;
+  text-decoration: underline;
+}
+
+.tablebody:hover {
+  background-color: #D8D8D8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+html { 
+  background: url(https://s3.amazonaws.com/backgroundpicture/image.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+ section{
+  background: cadetblue;
+  padding: 3%
+}
+ .title{
+  text-align:center;
+  color: white;
+}
+/* 
+-----------------------
+Modified Default Class 
+-----------------------
+*/
+ .tab-content{
+  background-color: #fff6;
+  padding: 20px;
+}
+.form-control{
+  background-color: #fff4;
+}
+/*NAV LINK */
+.nav-link{
+  color: black;
+}
+.active {
+  font-weight: bolder;
+  color: black!important;
+}
+input:focus{
+   background-color: cadetblue!important;
+}
+ /* 
+--------------------
+Custom New Class 
+--------------------
+*/
+.btn-search:hover{
+  background:black;
+  color:  #ffd29c;
+}
+.searchInput{
+  height: 3em;
+}
+ /* | BOOTSTRAP CLASS | col-md-* | Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { 
+   .paddingRightClear{
+    padding-right: 0px!important;
+  }
+}

@@ -1,37 +1,19 @@
 /*
- * books.js
- * Jeff Ondich, 27 April 2016
- * Updated, 4 May 2018
+    Web Application Phase 6 Homework
+    musify.js
+    @author Yuting Su(suy@carleton.edu)
+    @author Starr Wang(wangy3@carleton.edu)
+ ```@Jeff Ondich
+ * Updated, 30 Oct 2018
+
  *
- * A little bit of Javascript showing one small example of AJAX
- * within the "books and authors" sample for Carleton CS257,
- * Spring Term 2017.
- *
- * This example uses a very simple-minded approach to Javascript
- * program structure, which suffers from the problem of
- * "global namespace pollution". We'll talk more about this after
- * you get a feel for some Javascript basics.
+ * This is the Javascript file for Musify. 
  */
 
-// IMPORTANT CONFIGURATION INFORMATION
-// The contents of getBaseURL below reflects our assumption that
-// the web application (books_website.py) and the API (books_api.py)
-// will be running on the same host but on different ports.
-//
-// But if you take a look at the contents of getBaseURL, you may
-// ask: where does the value of api_port come from? The answer is
-// a little bit convoluted. (1) The command-line syntax of
-// books_website.py includes an argument for the API port;
-// and (2) the index.html Flask/Jinja2 template includes a tiny
-// bit of Javascript that declares api_port and assigns that
-// command-line API port argument to api_port. This happens
-// before books.js is loaded, so the functions in books.js (like
-// getBaseURL) can access api_port as needed.
 
 initialize();
 
 function initialize() {
-
     var singers = document.getElementById('singers');
     if (singers) {
         singers.onclick = onSingersButtonClicked;
@@ -60,15 +42,13 @@ function onSingersButtonClicked() {
     var searchWord = document.getElementById('search-bar').value;
 
     var url = getBaseURL() + '/singers?singer_name=' + searchWord;
-    // Send the request to the Books API /authors/ endpoint
+
     fetch(url, {method: 'get'})
 
     // When the results come back, transform them from JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
+    // a Javascript object (in this case, a list of singer dictionaries).
     .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
     .then(function(singersList) {
         // Build the table body.
         var tableBody = '';
@@ -76,7 +56,7 @@ function onSingersButtonClicked() {
             if (k%4 == 0){
                 tableBody += '<tr>';
             }
-            tableBody += '<td><a onclick="getSinger(' + singersList[k]['id'] + ",'"
+            tableBody += '<td><a class="tablebody" onclick="getSinger(' + singersList[k]['id'] + ",'"
                             + singersList[k]['singer_name'] + "')\">"
                             + singersList[k]['singer_name'] + '</a></td>';
             if ((k+1)%4 == 0){
@@ -97,9 +77,6 @@ function onSingersButtonClicked() {
 }
 
 function getSinger(singerID, singerName) {
-    // Very similar pattern to onAuthorsButtonClicked, so I'm not
-    // repeating those comments here. Read through this code
-    // and see if it makes sense to you.
     var url = getBaseURL() + '/singers/' + singerID;
 
     fetch(url, {method: 'get'})
@@ -129,15 +106,12 @@ function onSongsButtonClicked() {
 
     var url = getBaseURL() + '/songs?song_name=' + searchWord;
 
-    // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
 
     // When the results come back, transform them from JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
+    // a Javascript object (in this case, a list of song dictionaries).
     .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
     .then(function(songsList) {
         // Build the table body.
         var tableBody = '';
@@ -145,7 +119,7 @@ function onSongsButtonClicked() {
             if (k%4 == 0){
                 tableBody += '<tr>';
             }
-            tableBody += '<td><a onclick="getSong(' + songsList[k]['id'] + ",'"
+            tableBody += '<td><a class="tablebody" onclick="getSong(' + songsList[k]['id'] + ",'"
                             + songsList[k]['song_name'] + "')\">"
                             + songsList[k]['song_name'] + '</a></td>';
             tableBody += '</td>';
@@ -168,9 +142,6 @@ function onSongsButtonClicked() {
 }
 
 function getSong(songID, songName) {
-    // Very similar pattern to onAuthorsButtonClicked, so I'm not
-    // repeating those comments here. Read through this code
-    // and see if it makes sense to you.
     var url = getBaseURL() + '/songs/' + songID;
 
     fetch(url, {method: 'get'})
@@ -250,15 +221,12 @@ function onAdvancedSongsButtonClicked() {
         hasKey = true;
     }
 
-    // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
 
     // When the results come back, transform them from JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
+    // a Javascript object (in this case, a list of song dictionaries).
     .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
     .then(function(songsList) {
         // Build the table body.
         var tableBody = '';
@@ -266,7 +234,7 @@ function onAdvancedSongsButtonClicked() {
             if (k%4 == 0){
                 tableBody += '<tr>';
             }
-            tableBody += '<td><a onclick="getSong(' + songsList[k]['id'] + ",'"
+            tableBody += '<td><a class="tablebody" onclick="getSong(' + songsList[k]['id'] + ",'"
                             + songsList[k]['song_name'] + "')\">"
                             + songsList[k]['song_name'] + '</a></td>';
             tableBody += '</td>';
@@ -318,15 +286,12 @@ function onAdvancedSingersButtonClicked() {
         hasKey = true;
     }
 
-    // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
 
     // When the results come back, transform them from JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
+    // a Javascript object (in this case, a list of singer dictionaries).
     .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
     .then(function(singersList) {
         // Build the table body.
         var tableBody = '';
@@ -334,7 +299,7 @@ function onAdvancedSingersButtonClicked() {
             if (k%4 == 0){
                 tableBody += '<tr>';
             }
-            tableBody += '<td><a onclick="getSinger(' + singersList[k]['id'] + ",'"
+            tableBody += '<td><a class="tablebody" onclick="getSinger(' + singersList[k]['id'] + ",'"
                             + singersList[k]['singer_name'] + "')\">"
                             + singersList[k]['singer_name'] + '</a></td>';
             if ((k+1)%4 == 0){

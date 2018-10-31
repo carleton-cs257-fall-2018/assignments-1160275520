@@ -1,12 +1,13 @@
 '''
-Web Application Phase 6 Homework
+
+
     This is the Flask app for the
         "songs and singers" API and website. The API offers
         JSON access to the data, while the website (at
         route '/') offers end-user browsing of the data.
     @author Yuting Su(suy@carleton.edu)
     @author Starr Wang(wangy3@carleton.edu)
-    2018-10-21
+    Updated 30 Oct 2018
 '''
 
 import sys
@@ -16,13 +17,11 @@ app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/') 
 def get_main_page():
-    ''' This is the only route intended for human users '''
     global api_port
     return flask.render_template('index.html', api_port=api_port)
 
 @app.route('/advanced') 
 def get_advanced_page():
-    ''' This is the only route intended for human users '''
     global api_port
     return flask.render_template('advanced.html', api_port=api_port)
 
