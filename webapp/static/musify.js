@@ -38,6 +38,7 @@ function getBaseURL() {
     return baseURL;
 }
 
+//Get the list of singer dictionaries 
 function onSingersButtonClicked() {
     var searchWord = document.getElementById('search-bar').value;
 
@@ -76,6 +77,7 @@ function onSingersButtonClicked() {
     });
 }
 
+//Get the information about a specific singer  
 function getSinger(singerID, singerName) {
     var url = getBaseURL() + '/singers/' + singerID;
 
@@ -101,6 +103,7 @@ function getSinger(singerID, singerName) {
     });
 }
 
+//Get the list of song dictionaries 
 function onSongsButtonClicked() {
     var searchWord = document.getElementById('search-bar').value;
 
@@ -141,6 +144,7 @@ function onSongsButtonClicked() {
     });
 }
 
+//Get the information about a specific song  
 function getSong(songID, songName) {
     var url = getBaseURL() + '/songs/' + songID;
 
@@ -167,6 +171,7 @@ function getSong(songID, songName) {
     });
 }
 
+//Get the list of song dictionaries based on the key word in search
 function onAdvancedSongsButtonClicked() {
     var song_name = document.getElementById('song_name').value;
     var singer = document.getElementById('singer').value;
@@ -177,6 +182,7 @@ function onAdvancedSongsButtonClicked() {
 
     var hasKey = false;
 
+    //generate the url to call api
     var url = getBaseURL() + '/songs?';
     if (song_name){
         if (hasKey == true){
@@ -256,6 +262,7 @@ function onAdvancedSongsButtonClicked() {
     });
 }
 
+//Get the list of singer dictionaries based on the key word in search
 function onAdvancedSingersButtonClicked() {
     var singer_name = document.getElementById('singer_name').value;
     var singer_hotness = document.getElementById('singer_hotness').value;
@@ -263,6 +270,7 @@ function onAdvancedSingersButtonClicked() {
 
     var hasKey = false;
 
+    //generate the url to call api
     var url = getBaseURL() + '/singers?';
     if (singer_name){
         if (hasKey == true){
