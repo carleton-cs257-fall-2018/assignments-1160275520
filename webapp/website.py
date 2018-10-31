@@ -1,6 +1,5 @@
 '''
-
-
+    Web Application Phase 6 Homework
     This is the Flask app for the
         "songs and singers" API and website. The API offers
         JSON access to the data, while the website (at
