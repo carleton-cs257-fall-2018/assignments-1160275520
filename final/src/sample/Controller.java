@@ -32,7 +32,7 @@ public class Controller {
         this.AnimalCrushView.update(this.gameboardModel);
         this.scoreLabel.setText(String.format("Score: %d", this.gameboardModel.getScore()));
         if (this.gameboardModel.isGameOver()) {
-            this.messageLabel.setText("Congratulation!You win the game");
+            this.messageLabel.setText("Congratulation!");
         }
         else {
             this.gameboardModel.update();
