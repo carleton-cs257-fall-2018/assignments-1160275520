@@ -28,6 +28,10 @@ public class GameboardModel {
         return this.grids;
     }
 
+    public int getScore() {
+        return this.score;
+    }
+
     public boolean isGameOver() {
         return this.gameOver;
     }
@@ -75,7 +79,13 @@ public class GameboardModel {
     /**
      * update the score according the number of matching grids that the user find
      */
-    public void updateScore(int num) {
+    public void updateScore() {
+    }
+
+    public void update(){
+        this.swapGrid();
+        this.updateGameBoard();
+        this.updateScore();
     }
 
 }
