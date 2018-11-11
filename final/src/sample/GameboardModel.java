@@ -64,7 +64,7 @@ public class GameboardModel {
      * A method to find the number of rows in the grids of the game board
      * @return  the number of rows of the grids in the game board
      */
-    
+
     public void gameStart() {
         this.score = 0;
         this.initializeGameboard();
