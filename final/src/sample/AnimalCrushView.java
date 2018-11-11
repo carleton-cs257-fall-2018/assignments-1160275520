@@ -55,10 +55,10 @@ public class AnimalCrushView extends Group {
 
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
-        GameboardModel.GridModel[][] grids = model.getGrids()
+        GameboardModel(rowCount, columnCount).grids;
         for (int row = 0; row < this.rowCount; row++) {
             for (int column = 0; column < this.columnCount; column++) {
-                GridModel.animal animalType = grids[rowCount, columnCount];
+                GridModel.animal animalType = grids[rowCount][columnCount];
                 if (animalType == GridModel.animal.DOG) {
                     this.cellViews[row][column].setFill(Color.RED);
                 } else if (animalType == GridModel.animal.CAT) {
