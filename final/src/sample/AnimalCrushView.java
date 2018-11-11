@@ -9,6 +9,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+
 public class AnimalCrushView extends Group {
     public final static double CELL_WIDTH = 20.0;
     @FXML private int rowCount;
@@ -55,20 +59,20 @@ public class AnimalCrushView extends Group {
 
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
-        String grids = model.getGrids();
-        for (int row = 0; row < this.rowCount; row++) {
-            for (int column = 0; column < this.columnCount; column++) {
-                GridModel.animal animalType = grids[rowCount][columnCount];
-                if (animalType == GridModel.animal.DOG) {
-                    this.cellViews[row][column].setFill(Color.RED);
-                } else if (animalType == GridModel.animal.CAT) {
-                    this.cellViews[row][column].setFill(Color.BLACK);
-                } else if (animalType == GridModel.animal.DEER) {
-                    this.cellViews[row][column].setFill(Color.GREEN);
-                } else if (animalType == GridModel.animal.LION) {
-                    this.cellViews[row][column].setFill(Color.WHITE);
-                }
-            }
-        }
+//        GameboardModel.List<List<GridModel>> grids = model.getGrids();
+//        for (int row = 0; row < this.rowCount; row++) {
+//            for (int column = 0; column < this.columnCount; column++) {
+//                GridModel.animal animalType = grids[rowCount][columnCount];
+//                if (animalType == GridModel.animal.DOG) {
+//                    this.cellViews[row][column].setFill(Color.RED);
+//                } else if (animalType == GridModel.animal.CAT) {
+//                    this.cellViews[row][column].setFill(Color.BLACK);
+//                } else if (animalType == GridModel.animal.DEER) {
+//                    this.cellViews[row][column].setFill(Color.GREEN);
+//                } else if (animalType == GridModel.animal.LION) {
+//                    this.cellViews[row][column].setFill(Color.WHITE);
+//                }
+//            }
+//        }
     }
 }

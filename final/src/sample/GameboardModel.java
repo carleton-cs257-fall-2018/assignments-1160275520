@@ -1,5 +1,4 @@
 package sample;
-
 import java.util.Random;
 
 
@@ -9,11 +8,21 @@ public class GameboardModel {
     private GridModel[][] grids;
     private boolean gameOver;
 
+    /**
+     * Class constructor
+     * @param  rowCount the number of rows of the grids in the game board
+     * @param  columnCount the number of columns of the grids in the game board
+     */
     public GameboardModel(int rowCount, int columnCount) {
         assert rowCount > 0 && columnCount > 0;
         this.grids = new GridModel[rowCount][columnCount];
         this.gameStart();
     }
+
+    /**
+     * A method to find the number of rows in the grids of the game board
+     * @return  the number of rows of the grids in the game board
+     */
 
     public int getRowCount() {
         return this.grids.length;
@@ -36,7 +45,11 @@ public class GameboardModel {
         return this.gameOver;
     }
 
-
+    /**
+     * A method to find the number of rows in the grids of the game board
+     * @return  the number of rows of the grids in the game board
+     */
+    
     public void gameStart() {
         this.score = 0;
         this.initializeGameboard();
@@ -87,5 +100,4 @@ public class GameboardModel {
         this.updateGameBoard();
         this.updateScore();
     }
-
 }
