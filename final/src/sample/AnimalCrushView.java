@@ -1,3 +1,10 @@
+/**
+ * AnimalCrushView.java
+ * Yuting Su, Starr Wang, 2018
+ *
+ * The View for this MVC sample application based on the game Animal Crush.
+ */
+
 package sample;
 
 import javafx.event.EventHandler;
@@ -56,6 +63,8 @@ public class AnimalCrushView extends Group {
             }
         }
     }
+
+    
 
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;

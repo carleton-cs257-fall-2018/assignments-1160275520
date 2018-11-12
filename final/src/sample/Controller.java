@@ -1,3 +1,10 @@
+/**
+ * Controller.java
+ * Yuting Su, Starr Wang, 2018
+ *
+ * The Controller for this MVC sample application based on the game Animal Crush.
+ */
+
 package sample;
 
 import javafx.fxml.FXML;

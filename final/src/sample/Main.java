@@ -1,3 +1,12 @@
+/**
+ * Controller.java
+ * Yuting Su, Starr Wang, 2018
+ *
+ * The JavaFX Application class and main program for this MVC sample application
+ * based on the game Animal Crush.
+ */
+
+
 package sample;
 
 import javafx.application.Application;

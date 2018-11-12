@@ -1,3 +1,10 @@
+/**
+ * AnimalCrushView.java
+ * Yuting Su, Starr Wang, 2018
+ *
+ * The Grid Model for this MVC sample application based on the game Animal Crush.
+ */
+
 package sample;
 import java.util.List;
 import java.util.ArrayList;
