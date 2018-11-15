@@ -24,3 +24,19 @@ class Grid:
 --class variable: position, animalType 
 
 --class method: getPosition(), getAnimalType(), initializeAnimalType()
+
+subclass of Lion, Deer, Dog, Cat
+
+
+Plan
+1.Create a random view at the beginning of the game
+--Make subclass of each animal, return number 
+--make a random view at the beginning of the game 
+
+
+
+2.get response when users clicks two grids
+3.swap the grids 
+4.replace the grids with new grids and update score
+5.deterimine when the game ends and update the view
+6.replace grid with animal pictures 

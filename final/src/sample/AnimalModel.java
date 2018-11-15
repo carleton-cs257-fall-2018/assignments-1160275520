@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GridModel {
+public class AnimalModel {
     List<Integer> position = new ArrayList<Integer>();
     private animal animalType;
 
@@ -23,7 +23,7 @@ public class GridModel {
      * @param  row the row of the grid
      * @param  col the column of the grid
      */
-    public GridModel(int row, int col) {
+    public AnimalModel(int row, int col) {
         this.position.add(row);
         this.position.add(col);
         this.animalType = initializeAnimalType();
