@@ -65,24 +65,25 @@ public class AnimalCrushView extends Group {
     }
 
 
-
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
 
-        GameboardModel.List<List<GridModel>> grids = model.getGrids();
-        for (int row = 0; row < this.rowCount; row++) {
-            for (int column = 0; column < this.columnCount; column++) {
-                GridModel.animal animalType = grids[rowCount][columnCount];
-                if (animalType == GridModel.animal.DOG) {
-                    this.cellViews[row][column].setFill(Color.RED);
-                } else if (animalType == GridModel.animal.CAT) {
-                    this.cellViews[row][column].setFill(Color.BLACK);
-                } else if (animalType == GridModel.animal.DEER) {
-                    this.cellViews[row][column].setFill(Color.GREEN);
-                } else if (animalType == GridModel.animal.LION) {
-                    this.cellViews[row][column].setFill(Color.WHITE);
-                }
-            }
-        }
+
+//        GameboardModel.AnimalModel[][] animals = model.getAnimals();
+//        for (int row = 0; row < this.rowCount; row++) {
+//            for (int column = 0; column < this.columnCount; column++) {
+//                AnimalModel.animal animalType = grids[rowCount][columnCount];
+//                if (animalType == AnimalModel.animal.DOG) {
+//                    this.cellViews[row][column].setFill(Color.RED);
+//                } else if (animalType == AnimalModel.animal.CAT) {
+//                    this.cellViews[row][column].setFill(Color.BLACK);
+//                } else if (animalType == AnimalModel.animal.DEER) {
+//                    this.cellViews[row][column].setFill(Color.GREEN);
+//                } else if (animalType == AnimalModel.animal.LION) {
+//                    this.cellViews[row][column].setFill(Color.WHITE);
+//                }
+//            }
+//        }
+
     }
 }

@@ -6,49 +6,48 @@
  */
 
 package sample;
-import java.util.Random;
 
 
 public class GameboardModel {
 
     private int score;
-    private GridModel[][] grids;
+    private AnimalModel[][] animals;
     private boolean gameOver;
 
     /**
      * Class constructor
-     * @param  rowCount the number of rows of the grids in the game board
-     * @param  columnCount the number of columns of the grids in the game board
+     * @param  rowCount the number of rows of the animals in the game board
+     * @param  columnCount the number of columns of the animals in the game board
      */
     public GameboardModel(int rowCount, int columnCount) {
         assert rowCount > 0 && columnCount > 0;
-        this.grids = new GridModel[rowCount][columnCount];
+        this.animals = new AnimalModel[rowCount][columnCount];
         this.gameStart();
     }
 
     /**
-     * A method to find the number of rows in the grids of the game board
-     * @return  the number of rows of the grids in the game board
+     * A method to find the number of rows in the animals of the game board
+     * @return  the number of rows of the animals in the game board
      */
     public int getRowCount() {
-        return this.grids.length;
+        return this.animals.length;
     }
 
     /**
-     * A method to find the number of columns in the grids of the game board
-     * @return  the number of columns of the grids in the game board
+     * A method to find the number of columns in the animals of the game board
+     * @return  the number of columns of the animals in the game board
      */
     public int getColumnCount() {
-        assert this.grids.length > 0;
-        return this.grids[0].length;
+        assert this.animals.length > 0;
+        return this.animals[0].length;
     }
 
     /**
-     * A method to get the grids, which is an array of an array of GridModel
-     * @return  the grids that is created above
+     * A method to get the animals, which is an array of an array of AnimalModel
+     * @return  the animals that is created above
      */
-    public GridModel[][] getGrids() {
-        return this.grids;
+    public AnimalModel[][] getAnimals(int col, int row) {
+        return this.animals;
     }
 
     /**
@@ -68,8 +67,8 @@ public class GameboardModel {
     }
 
     /**
-     * A method to find the number of rows in the grids of the game board
-     * @return  the number of rows of the grids in the game board
+     * A method to find the number of rows in the animals of the game board
+     * @return  the number of rows of the animals in the game board
      */
 
     public void gameStart() {
@@ -79,46 +78,46 @@ public class GameboardModel {
 
     /**
      * initialize the gameboard, randomly assign an animal type to each grid,
-     * store the grids information to the class variable grids
+     * store the animals information to the class variable animals
      */
     private void initializeGameboard() {
-        int rowCount = this.grids.length;
-        int columnCount = this.grids[0].length;
+        int rowCount = this.animals.length;
+        int columnCount = this.animals[0].length;
     }
 
     /**
-     * when users click two grids, we need to check if each grid has matching grids nearby
+     * when users click two animals, we need to check if each grid has matching animals nearby
      *
      * @param grid1 the first animal grid that the user clicks
      * @param grid2 the second animal grid that the user clicks
-     * @return      the number of matching grids
+     * @return      the number of matching animals
      */
-    public int checkCrush(GridModel grid1, GridModel grid2) {
+    public int checkCrush(AnimalModel grid1, AnimalModel grid2) {
         return -1;
     }
 
     /**
-     * swap two animal grids by switching their positions and animal types
+     * swap two animal animals by switching their positions and animal types
      */
     public void swapGrid() {
     }
 
     /**
-     * update the gameboard by replacing the matching grids with the ones above them
-     * and filling the empty grids with new grids
+     * update the gameboard by replacing the matching animals with the ones above them
+     * and filling the empty animals with new animals
      */
     public void updateGameBoard() {
     }
 
 
     /**
-     * update the score according the number of matching grids that the user find
+     * update the score according the number of matching animals that the user find
      */
     public void updateScore() {
     }
 
     /**
-     * a method that groups the three methods which are required whenever there is matching grids
+     * a method that groups the three methods which are required whenever there is matching animals
      */
     public void update(){
         this.swapGrid();
