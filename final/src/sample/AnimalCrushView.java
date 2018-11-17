@@ -45,6 +45,7 @@ public class AnimalCrushView extends Group {
 
     public void setRowCount(int rowCount) {
         this.rowCount = rowCount;
+        this.initializeGrid();
     }
 
     public int getColumnCount() {
@@ -53,8 +54,8 @@ public class AnimalCrushView extends Group {
 
     public void setColumnCount(int columnCount) {
         this.columnCount = columnCount;
+        this.initializeGrid();
     }
-
 
     private void initializeGrid() {
         if (this.rowCount > 0 && this.columnCount > 0) {
@@ -67,11 +68,11 @@ public class AnimalCrushView extends Group {
                     rectangle.setWidth(CELL_WIDTH);
                     rectangle.setHeight(CELL_WIDTH);
                     this.cellViews[row][column] = rectangle;
-//                    int colIndex = column;
-//                    int rowIndex = row;
-//                    rectangle.setOnMouseClicked(e ->{
-//                        System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
-//                    });
+                    int colIndex = column;
+                    int rowIndex = row;
+                    rectangle.setOnMouseClicked(e ->{
+                        System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
+                    });
                     this.getChildren().add(rectangle);
                 }
             }
