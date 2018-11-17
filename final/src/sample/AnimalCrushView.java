@@ -13,6 +13,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -20,10 +21,19 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.fxml.FXML;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
+
+
 public class AnimalCrushView extends Group {
-    public final static double CELL_WIDTH = 20.0;
+    public final static double CELL_WIDTH = 90.0;
     @FXML private int rowCount;
     @FXML private int columnCount;
+
     private Rectangle[][] cellViews;
 
     public AnimalCrushView() {
@@ -35,7 +45,6 @@ public class AnimalCrushView extends Group {
 
     public void setRowCount(int rowCount) {
         this.rowCount = rowCount;
-        this.initializeGrid();
     }
 
     public int getColumnCount() {
@@ -44,8 +53,8 @@ public class AnimalCrushView extends Group {
 
     public void setColumnCount(int columnCount) {
         this.columnCount = columnCount;
-        this.initializeGrid();
     }
+
 
     private void initializeGrid() {
         if (this.rowCount > 0 && this.columnCount > 0) {
@@ -58,6 +67,11 @@ public class AnimalCrushView extends Group {
                     rectangle.setWidth(CELL_WIDTH);
                     rectangle.setHeight(CELL_WIDTH);
                     this.cellViews[row][column] = rectangle;
+//                    int colIndex = column;
+//                    int rowIndex = row;
+//                    rectangle.setOnMouseClicked(e ->{
+//                        System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
+//                    });
                     this.getChildren().add(rectangle);
                 }
             }
@@ -68,20 +82,27 @@ public class AnimalCrushView extends Group {
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
 
-//        GameboardModel.AnimalModel[][] animals = model.getAnimals();
-//        for (int row = 0; row < this.rowCount; row++) {
-//            for (int column = 0; column < this.columnCount; column++) {
-//                AnimalModel.animal animalType = grids[rowCount][columnCount];
-//                if (animalType == AnimalModel.animal.DOG) {
-//                    this.cellViews[row][column].setFill(Color.RED);
-//                } else if (animalType == AnimalModel.animal.CAT) {
-//                    this.cellViews[row][column].setFill(Color.BLACK);
-//                } else if (animalType == AnimalModel.animal.DEER) {
-//                    this.cellViews[row][column].setFill(Color.GREEN);
-//                } else if (animalType == AnimalModel.animal.LION) {
-//                    this.cellViews[row][column].setFill(Color.WHITE);
+        for (int row = 0; row < rowCount; row++) {
+            for (int column = 0; column < columnCount; column++) {
+                AnimalModel animal = model.getAnimal(row,column);
+                if (animal.getColor() == "red") {
+                    this.cellViews[row][column].setFill(Color.RED);
+                }
+//                else if (animal.getColor() == "yellow") {
+//                    this.cellViews[row][column].setFill(Color.YELLOW);
 //                }
-//            }
-//        }
+//                else if (animal.getColor() == "blue") {
+//                    this.cellViews[row][column].setFill(Color.BLUE);
+//                }
+//                else if (animal.getColor() == "green") {
+//                    this.cellViews[row][column].setFill(Color.GREEN);
+//                }
+//                else if (animal.getColor() == "pink") {
+//                    this.cellViews[row][column].setFill(Color.PINK);
+//                }
+            }
+        }
     }
+
+
 }

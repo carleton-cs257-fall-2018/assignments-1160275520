@@ -6,6 +6,7 @@
  */
 
 package sample;
+import java.util.Random;
 
 
 public class GameboardModel {
@@ -13,6 +14,7 @@ public class GameboardModel {
     private int score;
     private AnimalModel[][] animals;
     private boolean gameOver;
+
 
     /**
      * Class constructor
@@ -46,8 +48,8 @@ public class GameboardModel {
      * A method to get the animals, which is an array of an array of AnimalModel
      * @return  the animals that is created above
      */
-    public AnimalModel[][] getAnimals(int col, int row) {
-        return this.animals;
+    public AnimalModel getAnimal(int col, int row) {
+        return this.animals[row][col];
     }
 
     /**
@@ -83,6 +85,27 @@ public class GameboardModel {
     private void initializeGameboard() {
         int rowCount = this.animals.length;
         int columnCount = this.animals[0].length;
+        for (int col=0; col<columnCount; col++){
+            for (int row=0; row<rowCount; row++){
+                Random random = new Random();
+                int num =  random.nextInt(5);
+                if (num==0){
+                    this.animals[row][col] = new DogModel(row, col);
+                }
+                else if(num==1){
+                    this.animals[row][col] = new CatModel(row, col);
+                }
+                else if(num==2){
+                    this.animals[row][col] = new DeerModel(row, col);
+                }
+                else if(num==3){
+                    this.animals[row][col] = new LionModel(row, col);
+                }
+                else if(num==4){
+                    this.animals[row][col] = new TigerModel(row, col);
+                }
+            }
+        }
     }
 
     /**
