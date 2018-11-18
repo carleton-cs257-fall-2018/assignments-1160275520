@@ -35,10 +35,53 @@ Plan
 
 2.get response when users clicks two grids
 
-3.swap the grids if the two grids are of the same type 
+3.check if the two grid are neighbours
+
+4.check if the two grid are the same type of animal 
+
+5.if the two grids are neighbours and not the same type of animal, 
+check if there users can get point by checking if 
+
 
 4.replace the grids with new grids and update score
 
 5.deterimine when the game ends and update the view
 
 6.replace grid with animal pictures 
+
+checkNeighbour()
+
+checkSameType()
+
+
+checkCrush()
+
+    swap two animals in the animals list
+    check horizontally
+    check vertially 
+    if there is crushing animal:
+        update the view
+    else:
+        swap the animal back
+    
+updateView()
+    
+    update the score based on number of crushing animal
+    update the view of crushing animal to bombing effect
+    generateNewAnimal()
+
+
+generateNewAnimal():
+
+    generate new animal randomly
+    update the view from crush to new animal--need to wait for a few seconds
+
+
+userClickAnimal(col, row)
+
+    if this is the first animal that the user click: 
+        store the information to userClickAnimal
+        
+    else:
+         if the two animals are neighbors and the animal is not the same type:
+            check if there is crush

@@ -7,6 +7,7 @@
 
 package sample;
 import java.util.Random;
+import java.util.*;
 
 
 public class GameboardModel {
@@ -14,6 +15,7 @@ public class GameboardModel {
     private int score;
     private AnimalModel[][] animals;
     private boolean gameOver;
+    private List<Integer> firstClickedAnimal;
 
 
     /**
@@ -25,7 +27,33 @@ public class GameboardModel {
         assert rowCount > 0 && columnCount > 0;
         this.animals = new AnimalModel[rowCount][columnCount];
         this.gameStart();
+        this.firstClickedAnimal = new ArrayList<>();
     }
+
+    //a method that is called when the user click the animal grid
+    public void userClickAnimal(int colIndex, int rowIndex){
+        if (this.firstClickedAnimal.isEmpty()){
+            this.firstClickedAnimal.add(rowIndex);
+            this.firstClickedAnimal.add(colIndex);
+            System.out.printf("the first animal!");
+        }
+        else{
+            System.out.printf("time to compare the two animals");
+        }
+    }
+
+    public boolean checkNeighbour(int col1, int row1, int col2, int row2){
+        return ((col1==col1 && (row1-row2==-1 || row1-row2 ==1)) || (row1==row2 && (col1-col2==-1 || col1-col2==1)));
+    }
+
+    public boolean checkSameType(int col1, int row1, int col2, int row2){
+        AnimalModel Animal1 = animals[row1][col1];
+        AnimalModel Animal2 = animals[row2][col2];
+    }
+
+
+
+
 
     /**
      * A method to find the number of rows in the animals of the game board

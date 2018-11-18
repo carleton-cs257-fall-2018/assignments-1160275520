@@ -11,7 +11,13 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import javafx.scene.paint.ImagePattern;
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
 
 public class AnimalCrushView extends Group {
@@ -53,22 +59,11 @@ public class AnimalCrushView extends Group {
                     rectangle.setWidth(CELL_WIDTH);
                     rectangle.setHeight(CELL_WIDTH);
                     this.cellViews[row][column] = rectangle;
-                    int colIndex = column;
-                    int rowIndex = row;
-
-                    rectangle.setOnMouseClicked(e -> {
-                        Image bomb = new Image("animals/bomb.gif");
-                        ImagePattern bombPattern = new ImagePattern(bomb);
-                        this.cellViews[rowIndex][colIndex].setFill(bombPattern);
-                        System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
-
-                    });
                     this.getChildren().add(rectangle);
                 }
             }
         }
     }
-
 
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
@@ -86,6 +81,15 @@ public class AnimalCrushView extends Group {
 
         for (int row = 0; row < rowCount; row++) {
             for (int column = 0; column < columnCount; column++) {
+
+                int colIndex = column;
+                int rowIndex = row;
+                Rectangle rectangle = this.cellViews[row][column];
+                rectangle.setOnMouseClicked(e -> {
+                    System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
+                    model.userClickAnimal(colIndex, rowIndex);
+                });
+
                 AnimalModel animal = model.getAnimal(row,column);
                 if (animal.getType() == "cat") {
                     this.cellViews[row][column].setFill(catPattern);
