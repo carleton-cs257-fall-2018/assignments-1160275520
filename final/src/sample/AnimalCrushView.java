@@ -69,20 +69,6 @@ public class AnimalCrushView extends Group {
         }
     }
 
-    public void start(Stage primaryStage, Image newImage) {
-        Image bomb = new Image("animals/bomb.gif");
-        ImageView imageView = new ImageView();
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(imageView.imageProperty(), bomb)),
-                new KeyFrame(Duration.seconds(3), new KeyValue(imageView.imageProperty(), newImage)),
-                new KeyFrame(Duration.seconds(8), new KeyValue(imageView.imageProperty(), null))
-        );
-        timeline.play();
-        StackPane root = new StackPane();
-        root.getChildren().add(imageView);
-        primaryStage.setScene(new Scene(root, 800, 600));
-        primaryStage.show();
-    }
 
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
@@ -108,17 +94,7 @@ public class AnimalCrushView extends Group {
                     System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
                     Image bomb = new Image("animals/bomb.gif");
                     ImagePattern bombPattern = new ImagePattern(bomb);
-//                    ImageView imageView = new ImageView();
-//                    Timeline timeline = new Timeline(
-//                            new KeyFrame(Duration.ZERO, new KeyValue(imageView.imageProperty(), bomb)),
-//                            new KeyFrame(Duration.seconds(3), new KeyValue(imageView.imageProperty(), cat)),
-//                            new KeyFrame(Duration.seconds(8), new KeyValue(imageView.imageProperty(), null))
-//                    );
-//                    timeline.play();
-//                    StackPane root = new StackPane();
-//                    root.getChildren().add(imageView);
-//                    primaryStage.setScene(new Scene(root, 800, 600));
-//                    primaryStage.show();
+
                     this.cellViews[rowIndex][colIndex].setFill(bombPattern);
                     model.userClickAnimal(colIndex, rowIndex);
                 });

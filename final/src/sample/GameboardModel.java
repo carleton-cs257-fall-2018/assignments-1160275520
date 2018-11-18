@@ -45,8 +45,10 @@ public class GameboardModel {
                 int number = checkCrush(rowIndex, colIndex, firstClickedAnimal.get(0), firstClickedAnimal.get(1));
                 System.out.printf(Integer.toString(number));
                 this.update();
+//                firstClickedAnimal.clear();
             }
         }
+
     }
 
     private boolean checkNeighbour(int col1, int row1, int col2, int row2){
@@ -120,37 +122,63 @@ public class GameboardModel {
 
         //if going up, check up, right, left
         if (swapCol==originalCol &&  originalRow-swapRow==1){
+            int originalSize = crushingAnimals.size();
             this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
             this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
+            if(crushingAnimals.size() != (originalSize)) {
+                animals[originalRow][originalCol] = getAnimal(swapRow, swapCol);
+                animals[swapRow][swapCol] = getAnimal(originalRow, originalCol);
+                crushingAnimals.add(getAnimal(swapRow, swapCol));
+            }
         }
 
         //if going down, check down, right, left
         if (swapCol==originalCol &&  originalRow-swapRow==-1){
+            int originalSize = crushingAnimals.size();
             this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
             this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
+            if(crushingAnimals.size() != (originalSize)) {
+                animals[originalRow][originalCol] = getAnimal(swapRow, swapCol);
+                animals[swapRow][swapCol] = getAnimal(originalRow, originalCol);
+                crushingAnimals.add(getAnimal(swapRow, swapCol));
+            }
         }
 
         //if going right, check down, up, right
         if (swapRow==originalRow &&  originalCol-swapCol==-1){
+            int originalSize = crushingAnimals.size();
             this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
             this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
+            if(crushingAnimals.size() != (originalSize)) {
+                animals[originalRow][originalCol] = getAnimal(swapRow, swapCol);
+                animals[swapRow][swapCol] = getAnimal(originalRow, originalCol);
+                crushingAnimals.add(getAnimal(swapRow, swapCol));
+            }
         }
 
         //if going left, check down, up, left
         if (swapRow==originalRow &&  originalCol-swapCol==1){
+            int originalSize = crushingAnimals.size();
             this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
             this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
             this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
+            if(crushingAnimals.size() != (originalSize)) {
+                animals[originalRow][originalCol] = getAnimal(swapRow, swapCol);
+                animals[swapRow][swapCol] = getAnimal(originalRow, originalCol);
+                crushingAnimals.add(getAnimal(swapRow, swapCol));
+            }
         }
 
         return crushingAnimals.size();
     }
 
     public void update(){
+
         this.updateScore();
+        this.generateNewAnimal();
     }
 
     private void updateScore(){
@@ -158,7 +186,34 @@ public class GameboardModel {
 
     }
 
+    private void generateNewAnimal(){
+        for(int i = 0; i < crushingAnimals.size(); i++){
+            int tempRow = crushingAnimals.get(i).getRow();
+            int tempCol = crushingAnimals.get(i).getCol();
+            randomSetAnimals(tempRow, tempCol);
+        }
+    }
 
+    private void randomSetAnimals(int row, int col){
+        Random random = new Random();
+        int num =  random.nextInt(5);
+        if (num==4){
+            this.animals[row][col] = new DogModel(row, col);
+        }
+        else if(num==3){
+            this.animals[row][col] = new CatModel(row, col);
+        }
+        else if(num==2){
+            this.animals[row][col] = new DeerModel(row, col);
+        }
+        else if(num==1){
+            this.animals[row][col] = new LionModel(row, col);
+        }
+        else if(num==0){
+            this.animals[row][col] = new TigerModel(row, col);
+        }
+
+    }
 
     /**
      * A method to find the number of rows in the animals of the game board
@@ -218,52 +273,19 @@ public class GameboardModel {
     private void initializeGameboard() {
         int rowCount = this.animals.length;
         int columnCount = this.animals[0].length;
-        for (int col=0; col<columnCount; col++){
-            for (int row=0; row<rowCount; row++){
-                Random random = new Random();
-                int num =  random.nextInt(5);
-                if (num==0){
-                    this.animals[row][col] = new DogModel(row, col);
-                }
-                else if(num==1){
-                    this.animals[row][col] = new CatModel(row, col);
-                }
-                else if(num==2){
-                    this.animals[row][col] = new DeerModel(row, col);
-                }
-                else if(num==3){
-                    this.animals[row][col] = new LionModel(row, col);
-                }
-                else if(num==4){
-                    this.animals[row][col] = new TigerModel(row, col);
-                }
+        for (int row=0; row<rowCount; row++){
+            for (int col=0; col<columnCount; col++){
+                randomSetAnimals(row, col);
             }
         }
     }
 
 
     /**
-     * when users click two animals, we need to check if each grid has matching animals nearby
-     *
-     * @param grid1 the first animal grid that the user clicks
-     * @param grid2 the second animal grid that the user clicks
-     * @return      the number of matching animals
-     */
-    public int checkCrush(AnimalModel grid1, AnimalModel grid2) {
-        String animal1 = grid1.getType();
-        String animal2 = grid2.getType();
-
-        AnimalModel temp = new AnimalModel(grid2.getRow()+1, grid2.getCol());
-        while(temp.getType().equals(animal1)){
-
-        }
-        return -1;
-    }
-
-    /**
      * swap two animal animals by switching their positions and animal types
      */
     public void swapGrid() {
+
     }
 
     /**
