@@ -20,10 +20,6 @@ import javafx.util.Duration;
 import java.util.*;
 
 
-
-
-
-
 public class AnimalCrushView extends Group {
     public final static double CELL_WIDTH = 80.0;
     @FXML private int rowCount;
@@ -68,6 +64,7 @@ public class AnimalCrushView extends Group {
             }
         }
     }
+
 
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;

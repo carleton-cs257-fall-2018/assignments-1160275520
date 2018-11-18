@@ -16,6 +16,7 @@ public class AnimalModel {
     private String type;
     private ImagePattern imagePattern;
 
+
     /**
      * Class constructor
      * @param  row the row of the grid
