@@ -78,7 +78,7 @@ public class GameboardModel {
      * A method to get the animals, which is an array of an array of AnimalModel
      * @return  the animals that is created above
      */
-    public AnimalModel getAnimal(int col, int row) {
+    public AnimalModel getAnimal(int row, int col) {
         return this.animals[row][col];
     }
 
