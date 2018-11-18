@@ -35,24 +35,26 @@ public class GameboardModel {
         if (this.firstClickedAnimal.isEmpty()){
             this.firstClickedAnimal.add(rowIndex);
             this.firstClickedAnimal.add(colIndex);
-            System.out.printf("the first animal!");
         }
         else{
-            System.out.printf("time to compare the two animals");
+            if (checkNeighbour(colIndex, rowIndex, firstClickedAnimal.get(1), firstClickedAnimal.get(0))){
+                System.out.printf("neighbours!");
+            }
+            if (checkSameType(colIndex, rowIndex, firstClickedAnimal.get(1), firstClickedAnimal.get(0))){
+                System.out.printf("same animals!");
+            }
         }
     }
 
     public boolean checkNeighbour(int col1, int row1, int col2, int row2){
-        return ((col1==col1 && (row1-row2==-1 || row1-row2 ==1)) || (row1==row2 && (col1-col2==-1 || col1-col2==1)));
+        return ((col1==col2 && Math.abs(row1-row2)==1) || (row1==row2 && Math.abs(col1-col2)==1));
     }
 
     public boolean checkSameType(int col1, int row1, int col2, int row2){
-        AnimalModel Animal1 = animals[row1][col1];
-        AnimalModel Animal2 = animals[row2][col2];
+        AnimalModel animal1 = animals[row1][col1];
+        AnimalModel animal2 = animals[row2][col2];
+        return (animal1.getType()==animal2.getType());
     }
-
-
-
 
 
     /**

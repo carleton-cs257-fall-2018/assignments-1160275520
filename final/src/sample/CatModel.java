@@ -10,6 +10,6 @@ public class CatModel extends AnimalModel{
     }
 
     public String getType(){
-        return this.type;
+        return "cat";
     }
 }
