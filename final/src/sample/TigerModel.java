@@ -1,15 +1,21 @@
 package sample;
 
-public class TigerModel extends AnimalModel{
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 
-    private String type;
+public class TigerModel extends AnimalModel{
 
     public TigerModel(int row, int col){
         super(row, col);
-        this.type = "tiger";
+    }
+
+    public ImagePattern getImage(){
+        Image tiger = new Image("animals/tiger.jpg");
+        ImagePattern tigerPattern = new ImagePattern(tiger);
+        return tigerPattern;
     }
 
     public String getType(){
-        return this.type;
+        return "tiger";
     }
 }

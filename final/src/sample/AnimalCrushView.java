@@ -12,6 +12,16 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.ImagePattern;
+import javafx.animation.Timeline;
+import javafx.scene.image.ImageView;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.util.Duration;
+import java.util.*;
+
+
+
+
 
 
 public class AnimalCrushView extends Group {
@@ -62,51 +72,44 @@ public class AnimalCrushView extends Group {
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
 
-        Image cat = new Image("animals/cat.jpg");
-        ImagePattern catPattern = new ImagePattern(cat);
-        Image dog = new Image("animals/dog.jpg");
-        ImagePattern dogPattern = new ImagePattern(dog);
-        Image deer = new Image("animals/deer.jpg");
-        ImagePattern deerPattern = new ImagePattern(deer);
-        Image lion = new Image("animals/lion.jpg");
-        ImagePattern lionPattern = new ImagePattern(lion);
-        Image tiger = new Image("animals/tiger.jpg");
-        ImagePattern tigerPattern = new ImagePattern(tiger);
-
         for (int row = 0; row < rowCount; row++) {
             for (int column = 0; column < columnCount; column++) {
 
                 int colIndex = column;
                 int rowIndex = row;
                 Rectangle rectangle = this.cellViews[row][column];
+
                 rectangle.setOnMouseClicked(e -> {
-                    System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
-                    Image bomb = new Image("animals/bomb.gif");
-                    ImagePattern bombPattern = new ImagePattern(bomb);
-                    this.cellViews[rowIndex][colIndex].setFill(bombPattern);
-                    model.userClickAnimal(colIndex, rowIndex);
+                    List<Integer> swapAnimalsIndex = model.userClickAnimal(colIndex, rowIndex);
+                    if (swapAnimalsIndex.size()==4){
+                        this.swapAnimals(swapAnimalsIndex,model);
+                        this.crushingAnimals(model);
+                    }
                 });
 
                 AnimalModel animal = model.getAnimal(row,column);
-                if (animal.getType() == "cat") {
-                    this.cellViews[row][column].setFill(catPattern);
-                }
-                else if (animal.getType() == "dog") {
-                    this.cellViews[row][column].setFill(dogPattern);
-                }
-                else if (animal.getType() == "lion") {
-                    this.cellViews[row][column].setFill(lionPattern);
-                }
-                else if (animal.getType() == "deer") {
-                    this.cellViews[row][column].setFill(deerPattern);
-                }
-                else if (animal.getType() == "tiger") {
-                    this.cellViews[row][column].setFill(tigerPattern);
-                }
+                this.cellViews[row][column].setFill(animal.getImage());
             }
         }
 
     }
 
+    private void swapAnimals(List<Integer> swapAnimalIndex, GameboardModel model){
+        AnimalModel animal1 = model.getAnimal(swapAnimalIndex.get(0),swapAnimalIndex.get(1));
+        AnimalModel animal2 = model.getAnimal(swapAnimalIndex.get(2),swapAnimalIndex.get(3));
+        this.cellViews[animal1.getRow()][animal1.getCol()].setFill(animal2.getImage());
+        this.cellViews[animal2.getRow()][animal2.getCol()].setFill(animal1.getImage());
+    }
 
+    private void crushingAnimals(GameboardModel model){
+        List<AnimalModel> crushingAnimals = model.getCrushingAnimals();
+        for (int index = 0; index<crushingAnimals.size(); index++){
+            AnimalModel animal = crushingAnimals.get(index);
+
+            Image bomb = new Image("animals/bomb.gif");
+            ImagePattern bombPattern = new ImagePattern(bomb);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2500), ae -> this.cellViews[animal.getRow()][animal.getCol()].setFill(bombPattern)));
+            timeline.play();
+        }
+    }
 }

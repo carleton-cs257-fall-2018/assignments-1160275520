@@ -31,8 +31,8 @@ public class GameboardModel {
         this.crushingAnimals= new ArrayList<>();
     }
 
-    //a method that is called when the user click the animal grid
-    public void userClickAnimal(int colIndex, int rowIndex){
+    //a method that is called when the user click the animal grid, return the index of two swapging animals
+    public List<Integer> userClickAnimal(int colIndex, int rowIndex){
         if (this.firstClickedAnimal.isEmpty()){
             this.firstClickedAnimal.add(rowIndex);
             this.firstClickedAnimal.add(colIndex);
@@ -45,8 +45,11 @@ public class GameboardModel {
                 int number = checkCrush(rowIndex, colIndex, firstClickedAnimal.get(0), firstClickedAnimal.get(1));
                 System.out.printf(Integer.toString(number));
                 this.update();
+                this.firstClickedAnimal.add(rowIndex);
+                this.firstClickedAnimal.add(colIndex);
             }
         }
+        return this.firstClickedAnimal;
     }
 
     private boolean checkNeighbour(int col1, int row1, int col2, int row2){
@@ -86,7 +89,6 @@ public class GameboardModel {
             }
         }
     }
-
 
     private void checkLeftwards(int originalRow, int originalCol, int swapRow, int swapCol){
         AnimalModel animal = animals[originalRow][originalCol];
@@ -157,8 +159,6 @@ public class GameboardModel {
         this.score = score + this.crushingAnimals.size();
 
     }
-
-
 
     /**
      * A method to find the number of rows in the animals of the game board
@@ -241,45 +241,7 @@ public class GameboardModel {
         }
     }
 
-
-    /**
-     * when users click two animals, we need to check if each grid has matching animals nearby
-     *
-     * @param grid1 the first animal grid that the user clicks
-     * @param grid2 the second animal grid that the user clicks
-     * @return      the number of matching animals
-     */
-    public int checkCrush(AnimalModel grid1, AnimalModel grid2) {
-        String animal1 = grid1.getType();
-        String animal2 = grid2.getType();
-
-        AnimalModel temp = new AnimalModel(grid2.getRow()+1, grid2.getCol());
-        while(temp.getType().equals(animal1)){
-
-        }
-        return -1;
+    public List<AnimalModel> getCrushingAnimals(){
+        return this.crushingAnimals;
     }
-
-    /**
-     * swap two animal animals by switching their positions and animal types
-     */
-    public void swapGrid() {
-    }
-
-    /**
-     * update the gameboard by replacing the matching animals with the ones above them
-     * and filling the empty animals with new animals
-     */
-    public void updateGameBoard() {
-    }
-
-
-//    /**
-//     * a method that groups the three methods which are required whenever there is matching animals
-//     */
-//    public void update(){
-//        this.swapGrid();
-//        this.updateGameBoard();
-//        this.updateScore();
-//    }
 }

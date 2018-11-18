@@ -15,6 +15,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.MouseButton;
+import javafx.animation.Timeline;
+import javafx.scene.image.ImageView;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.util.Duration;
 
 
 
@@ -61,8 +66,8 @@ public class Controller implements EventHandler<MouseEvent> {
         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
             clickCount +=1;
             if(clickCount == 2){
-                System.out.println("Double clicked");
-                this.update();
+                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), ae -> this.update()));
+                timeline.play();
                 clickCount = 0;
             }
         }

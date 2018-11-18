@@ -1,12 +1,18 @@
 package sample;
 
-public class DogModel extends AnimalModel{
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 
-    private String type;
+public class DogModel extends AnimalModel{
 
     public DogModel(int row, int col){
         super(row, col);
-        this.type = "dog";
+    }
+
+    public ImagePattern getImage(){
+        Image dog = new Image("animals/dog.jpg");
+        ImagePattern dogPattern = new ImagePattern(dog);
+        return dogPattern;
     }
 
     public String getType(){

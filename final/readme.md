@@ -91,7 +91,11 @@ updateView()
 
 updateScore()
 
-generateBombingEffects()
+generateVisualEffects()
+1.first swap animal
+2.wait a few seconds, generate bombing effects
+3.wait a few seconds, replace the bombing with new animals
+
 
 generateNewAnimal():
 
@@ -108,3 +112,5 @@ userClickAnimal(col, row)
          if the two animals are neighbors and the animal is not the same type:
             check if there is crush
             updateView()
+            
+gameOver()

@@ -6,14 +6,15 @@
  */
 
 package sample;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
+
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 
 public class AnimalModel {
-    List<Integer> position = new ArrayList<Integer>();
-    String color;
-    String type;
+    private int row;
+    private int col;
+    private String type;
+    private ImagePattern imagePattern;
 
     /**
      * Class constructor
@@ -21,43 +22,23 @@ public class AnimalModel {
      * @param  col the column of the grid
      */
     public AnimalModel(int row, int col) {
-        this.position.add(row);
-        this.position.add(col);
-//        this.animalType = initializeAnimalType();
-    }
-
-    public String getType() {
-        return this.type;
+        this.row=row;
+        this.col=col;
     }
 
     public int getRow(){
-        return this.position.get(0);
+        return this.row;
     }
 
     public int getCol(){
-        return this.position.get(1);
+        return this.col;
     }
 
-//    /**
-//     * This method gives the grid a random animal type
-//     */
-//    public animal initializeAnimalType(){
-//        Random random = new Random();
-//        return animal.values()[new Random().nextInt(animal.values().length)];
-//    }
-//
-//    /**
-//     * This method get the position of the grid
-//     */
-//    public List<Integer> getPosition(){
-//        return position;
-//    }
-//
-//    /**
-//     * This method get the animal type of the grid
-//     */
-//    public animal getAnimalType(){
-//        return animalType;
-//    }
+    public ImagePattern getImage(){
+        return this.imagePattern;
+    }
 
+    public String getType(){
+        return this.type;
+    }
 }
