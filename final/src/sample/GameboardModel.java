@@ -119,7 +119,7 @@ public class GameboardModel {
         String animal1 = grid1.getType();
         String animal2 = grid2.getType();
 
-        AnimalModel temp = new AnimalModel(grid2.getRow()+1, grid2.getCol())
+        AnimalModel temp = new AnimalModel(grid2.getRow()+1, grid2.getCol());
         while(temp.getType().equals(animal1)){
 
         }

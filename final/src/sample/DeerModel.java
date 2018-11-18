@@ -1,14 +1,14 @@
 package sample;
 
 public class DeerModel extends AnimalModel {
-    private String color;
+    private String type;
 
     public DeerModel(int row, int col){
         super(row, col);
-        this.color = "green";
+        this.type = "deer";
     }
 
-    public String getColor(){
-        return this.color;
+    public String getType(){
+        return this.type;
     }
 }

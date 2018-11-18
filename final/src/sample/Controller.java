@@ -31,7 +31,6 @@ public class Controller {
     @FXML private Label scoreLabel;
     @FXML private Label messageLabel;
     @FXML private AnimalCrushView AnimalCrushView;
-    @FXML private GridPane grid;
 
     private GameboardModel gameboardModel;
 

@@ -26,10 +26,6 @@ public class AnimalModel {
 //        this.animalType = initializeAnimalType();
     }
 
-    public String getColor(){
-        return color;
-    }
-
     public String getType() {
         return this.type;
     }

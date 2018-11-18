@@ -7,31 +7,15 @@
 
 package sample;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Random;
-
-import javafx.fxml.FXML;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.ImagePattern;
 
 
 public class AnimalCrushView extends Group {
-    public final static double CELL_WIDTH = 90.0;
+    public final static double CELL_WIDTH = 80.0;
     @FXML private int rowCount;
     @FXML private int columnCount;
 
@@ -73,8 +57,9 @@ public class AnimalCrushView extends Group {
                     int rowIndex = row;
 
                     rectangle.setOnMouseClicked(e -> {
-                        int[] first = [rowIndex, colIndex];
-                        int[] second = []
+                        Image bomb = new Image("animals/bomb.gif");
+                        ImagePattern bombPattern = new ImagePattern(bomb);
+                        this.cellViews[rowIndex][colIndex].setFill(bombPattern);
                         System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
 
                     });
@@ -88,23 +73,34 @@ public class AnimalCrushView extends Group {
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
 
+        Image cat = new Image("animals/cat.jpg");
+        ImagePattern catPattern = new ImagePattern(cat);
+        Image dog = new Image("animals/dog.jpg");
+        ImagePattern dogPattern = new ImagePattern(dog);
+        Image deer = new Image("animals/deer.jpg");
+        ImagePattern deerPattern = new ImagePattern(deer);
+        Image lion = new Image("animals/lion.jpg");
+        ImagePattern lionPattern = new ImagePattern(lion);
+        Image tiger = new Image("animals/tiger.jpg");
+        ImagePattern tigerPattern = new ImagePattern(tiger);
+
         for (int row = 0; row < rowCount; row++) {
             for (int column = 0; column < columnCount; column++) {
                 AnimalModel animal = model.getAnimal(row,column);
-                if (animal.getColor() == "red") {
-                    this.cellViews[row][column].setFill(Color.RED);
+                if (animal.getType() == "cat") {
+                    this.cellViews[row][column].setFill(catPattern);
                 }
-                else if (animal.getColor() == "yellow") {
-                    this.cellViews[row][column].setFill(Color.YELLOW);
+                else if (animal.getType() == "dog") {
+                    this.cellViews[row][column].setFill(dogPattern);
                 }
-                else if (animal.getColor() == "blue") {
-                    this.cellViews[row][column].setFill(Color.BLUE);
+                else if (animal.getType() == "lion") {
+                    this.cellViews[row][column].setFill(lionPattern);
                 }
-                else if (animal.getColor() == "green") {
-                    this.cellViews[row][column].setFill(Color.GREEN);
+                else if (animal.getType() == "deer") {
+                    this.cellViews[row][column].setFill(deerPattern);
                 }
-                else if (animal.getColor() == "pink") {
-                    this.cellViews[row][column].setFill(Color.PINK);
+                else if (animal.getType() == "tiger") {
+                    this.cellViews[row][column].setFill(tigerPattern);
                 }
             }
         }
