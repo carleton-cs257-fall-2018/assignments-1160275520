@@ -54,22 +54,44 @@ checkNeighbour()
 checkSameType()
 
 
-checkCrush()
 
-    swap two animals in the animals list
-    check horizontally
-    check vertially 
-    if there is crushing animal:
-        update the view
-    else:
-        swap the animal back
+checkCrush(int originalRow, int originalCol, int swapRow, int swapCol){
+
+    List<AnimalModel> crushingAnimals = new ArrayList<>();
+    AnimalModel animal = animals[originalRow][originalCol]
+    
+    //check horizontally
+    //check rightwards
+    while (int col = swapCol+1; col<this.getColumnCount(); col++){
+        AnimalModel nearbyAnimal = animals[swapRow, col]
+        if (nearbyAnimal.getType() == animal.getType()){
+            crushingAnimal.add(nearbyAnimal);
+        }
+        else{
+            break
+        }
+    //check rightwards
+    while (int col = swapCol-1; col>0; col--){
+        AnimalModel nearbyAnimal = animals[swapRow, col]
+        if (nearbyAnimal.getType() == animal.getType()){
+            crushingAnimal.add(nearbyAnimal);
+        }
+        else{
+            break
+        }
+    return crushingAnimals
+}
+
     
 updateView()
     
     update the score based on number of crushing animal
-    update the view of crushing animal to bombing effect
+    update the view of crushing animal to bombing
     generateNewAnimal()
 
+updateScore()
+
+generateBombingEffects()
 
 generateNewAnimal():
 
@@ -85,3 +107,4 @@ userClickAnimal(col, row)
     else:
          if the two animals are neighbors and the animal is not the same type:
             check if there is crush
+            updateView()

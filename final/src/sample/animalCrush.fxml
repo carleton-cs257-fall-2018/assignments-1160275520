@@ -10,7 +10,7 @@
 <BorderPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml">
     <!-- See https://apps.carleton.edu/creativeservices/identity/college_colors/ for official Carleton colors -->
     <top>
-        <BorderPane prefHeight="35" style="-fx-background-color: #2CF1D0; -fx-padding: 10px, 5px, 10px, 5px" >
+        <BorderPane prefHeight="35" style="-fx-background-color: #2b9cf1; -fx-padding: 10px, 5px, 10px, 5px" >
             <left><Label fx:id="scoreLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></left>
             <right><Label fx:id="messageLabel" style="-fx-font-size: 150%; -fx-text-fill: white"/></right>
         </BorderPane>
