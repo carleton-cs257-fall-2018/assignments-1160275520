@@ -13,6 +13,7 @@ import java.util.Random;
 public class AnimalModel {
     List<Integer> position = new ArrayList<Integer>();
     String color;
+    String type;
 
     /**
      * Class constructor
@@ -27,6 +28,18 @@ public class AnimalModel {
 
     public String getColor(){
         return color;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public int getRow(){
+        return this.position.get(0);
+    }
+
+    public int getCol(){
+        return this.position.get(1);
     }
 
 //    /**

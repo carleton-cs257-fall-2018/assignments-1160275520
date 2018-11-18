@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.List;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -45,6 +46,7 @@ public class AnimalCrushView extends Group {
 
     public void setRowCount(int rowCount) {
         this.rowCount = rowCount;
+        this.initializeGrid();
     }
 
     public int getColumnCount() {
@@ -53,6 +55,7 @@ public class AnimalCrushView extends Group {
 
     public void setColumnCount(int columnCount) {
         this.columnCount = columnCount;
+        this.initializeGrid();
     }
 
 
@@ -67,11 +70,14 @@ public class AnimalCrushView extends Group {
                     rectangle.setWidth(CELL_WIDTH);
                     rectangle.setHeight(CELL_WIDTH);
                     this.cellViews[row][column] = rectangle;
-//                    int colIndex = column;
-//                    int rowIndex = row;
-//                    rectangle.setOnMouseClicked(e ->{
-//                        System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
-//                    });
+                    int colIndex = column;
+                    int rowIndex = row;
+                    rectangle.setOnMouseClicked(e -> {
+                        int[] first = [rowIndex, colIndex];
+                        int[] second = []
+                        System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
+
+                    });
                     this.getChildren().add(rectangle);
                 }
             }
@@ -88,18 +94,18 @@ public class AnimalCrushView extends Group {
                 if (animal.getColor() == "red") {
                     this.cellViews[row][column].setFill(Color.RED);
                 }
-//                else if (animal.getColor() == "yellow") {
-//                    this.cellViews[row][column].setFill(Color.YELLOW);
-//                }
-//                else if (animal.getColor() == "blue") {
-//                    this.cellViews[row][column].setFill(Color.BLUE);
-//                }
-//                else if (animal.getColor() == "green") {
-//                    this.cellViews[row][column].setFill(Color.GREEN);
-//                }
-//                else if (animal.getColor() == "pink") {
-//                    this.cellViews[row][column].setFill(Color.PINK);
-//                }
+                else if (animal.getColor() == "yellow") {
+                    this.cellViews[row][column].setFill(Color.YELLOW);
+                }
+                else if (animal.getColor() == "blue") {
+                    this.cellViews[row][column].setFill(Color.BLUE);
+                }
+                else if (animal.getColor() == "green") {
+                    this.cellViews[row][column].setFill(Color.GREEN);
+                }
+                else if (animal.getColor() == "pink") {
+                    this.cellViews[row][column].setFill(Color.PINK);
+                }
             }
         }
 

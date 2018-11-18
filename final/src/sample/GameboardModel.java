@@ -116,6 +116,13 @@ public class GameboardModel {
      * @return      the number of matching animals
      */
     public int checkCrush(AnimalModel grid1, AnimalModel grid2) {
+        String animal1 = grid1.getType();
+        String animal2 = grid2.getType();
+
+        AnimalModel temp = new AnimalModel(grid2.getRow()+1, grid2.getCol())
+        while(temp.getType().equals(animal1)){
+
+        }
         return -1;
     }
 
