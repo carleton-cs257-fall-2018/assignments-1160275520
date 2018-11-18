@@ -58,7 +58,6 @@ public class AnimalCrushView extends Group {
         this.initializeGrid();
     }
 
-
     private void initializeGrid() {
         if (this.rowCount > 0 && this.columnCount > 0) {
             this.cellViews = new Rectangle[this.rowCount][this.columnCount];
@@ -72,6 +71,7 @@ public class AnimalCrushView extends Group {
                     this.cellViews[row][column] = rectangle;
                     int colIndex = column;
                     int rowIndex = row;
+
                     rectangle.setOnMouseClicked(e -> {
                         int[] first = [rowIndex, colIndex];
                         int[] second = []
