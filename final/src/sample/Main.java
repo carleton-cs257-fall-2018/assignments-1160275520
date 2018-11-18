@@ -15,11 +15,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.MouseButton;
+
 
 public class Main extends Application {
 
@@ -30,6 +28,7 @@ public class Main extends Application {
         primaryStage.setTitle("animal crush");
 
         Controller controller = loader.getController();
+        root.setOnMouseClicked(controller);
         double sceneWidth = controller.getBoardWidth() + 20.0;
         double sceneHeight = controller.getBoardHeight() + 100.0;
         primaryStage.setScene(new Scene(root, sceneWidth, sceneHeight));

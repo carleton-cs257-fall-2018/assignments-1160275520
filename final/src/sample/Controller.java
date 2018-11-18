@@ -14,18 +14,21 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.input.MouseButton;
 
 
 
-public class Controller {
+public class Controller implements EventHandler<MouseEvent> {
     @FXML private Label scoreLabel;
     @FXML private Label messageLabel;
     @FXML private AnimalCrushView AnimalCrushView;
 
+    private int clickCount;
+
     private GameboardModel gameboardModel;
 
     public Controller() {
+        clickCount = 0;
     }
 
     public void initialize() {
@@ -48,8 +51,20 @@ public class Controller {
         if (this.gameboardModel.isGameOver()) {
             this.messageLabel.setText("Congratulation!");
         }
-        else {
-            this.gameboardModel.update();
+//        else {
+//            this.gameboardModel.update();
+//        }
+    }
+
+    @Override
+    public void handle(MouseEvent mouseEvent) {
+        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+            clickCount +=1;
+            if(clickCount == 2){
+                System.out.println("Double clicked");
+                this.update();
+                clickCount = 0;
+            }
         }
     }
 }
