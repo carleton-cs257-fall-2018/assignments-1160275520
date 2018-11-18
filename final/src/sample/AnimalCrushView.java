@@ -81,6 +81,12 @@ public class AnimalCrushView extends Group {
                     if (swapAnimalsIndex.size()==4){
                         this.swapAnimals(swapAnimalsIndex,model);
                         this.crushingAnimals(model);
+                        model.swap(swapAnimalsIndex.get(0),swapAnimalsIndex.get(1),
+                                swapAnimalsIndex.get(2),swapAnimalsIndex.get(3));
+                        model.update();
+//                        model.update(swapAnimalsIndex.get(0),swapAnimalsIndex.get(1),
+//                                swapAnimalsIndex.get(2),swapAnimalsIndex.get(3));
+                        model.clearUp();
                     }
                 });
 

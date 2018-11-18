@@ -16,7 +16,8 @@ public class GameboardModel {
     private AnimalModel[][] animals;
     private boolean gameOver;
     private List<Integer> firstClickedAnimal;
-    List<AnimalModel> crushingAnimals;
+//    private List<Integer> tempHold;
+    private List<AnimalModel> crushingAnimals;
 
     /**
      * Class constructor
@@ -38,25 +39,25 @@ public class GameboardModel {
             this.firstClickedAnimal.add(colIndex);
         }
         else{
-            if (checkNeighbour(colIndex, rowIndex, firstClickedAnimal.get(1), firstClickedAnimal.get(0))
-                    && !checkSameType(colIndex, rowIndex, firstClickedAnimal.get(1), firstClickedAnimal.get(0)))
+            if (checkNeighbour(rowIndex, colIndex, firstClickedAnimal.get(0), firstClickedAnimal.get(1))
+                    && !checkSameType(rowIndex, colIndex, firstClickedAnimal.get(0), firstClickedAnimal.get(1)))
             {
                 this.checkCrush(firstClickedAnimal.get(0), firstClickedAnimal.get(1),rowIndex, colIndex);
                 int number = checkCrush(rowIndex, colIndex, firstClickedAnimal.get(0), firstClickedAnimal.get(1));
                 System.out.printf(Integer.toString(number));
-                this.update();
                 this.firstClickedAnimal.add(rowIndex);
                 this.firstClickedAnimal.add(colIndex);
             }
         }
+
         return this.firstClickedAnimal;
     }
 
-    private boolean checkNeighbour(int col1, int row1, int col2, int row2){
+    private boolean checkNeighbour(int row1, int col1, int row2, int col2){
         return ((col1==col2 && Math.abs(row1-row2)==1) || (row1==row2 && Math.abs(col1-col2)==1));
     }
 
-    private boolean checkSameType(int col1, int row1, int col2, int row2){
+    private boolean checkSameType(int row1, int col1, int row2, int col2){
         AnimalModel animal1 = animals[row1][col1];
         AnimalModel animal2 = animals[row2][col2];
         return (animal1.getType()==animal2.getType());
@@ -64,7 +65,7 @@ public class GameboardModel {
 
     private void checkUpwards(int originalRow, int originalCol, int swapRow, int swapCol){
         AnimalModel animal = animals[originalRow][originalCol];
-        for (int row = swapRow - 1; row > 0; row--)
+        for (int row = swapRow - 1; row >= 0; row--)
         {
             AnimalModel nearbyAnimal = animals[row][swapCol];
             if (nearbyAnimal.getType() == animal.getType()) {
@@ -92,7 +93,7 @@ public class GameboardModel {
 
     private void checkLeftwards(int originalRow, int originalCol, int swapRow, int swapCol){
         AnimalModel animal = animals[originalRow][originalCol];
-        for (int col = swapCol - 1; col > 0; col--)
+        for (int col = swapCol - 1; col >= 0; col--)
         {
             AnimalModel nearbyAnimal = animals[swapRow][col];
             if (nearbyAnimal.getType() == animal.getType()) {
@@ -127,8 +128,6 @@ public class GameboardModel {
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
             this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
             if(crushingAnimals.size() != (originalSize)) {
-                animals[originalRow][originalCol] = getAnimal(swapRow, swapCol);
-                animals[swapRow][swapCol] = getAnimal(originalRow, originalCol);
                 crushingAnimals.add(getAnimal(swapRow, swapCol));
             }
         }
@@ -140,8 +139,6 @@ public class GameboardModel {
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
             this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
             if(crushingAnimals.size() != (originalSize)) {
-                animals[originalRow][originalCol] = getAnimal(swapRow, swapCol);
-                animals[swapRow][swapCol] = getAnimal(originalRow, originalCol);
                 crushingAnimals.add(getAnimal(swapRow, swapCol));
             }
         }
@@ -153,8 +150,6 @@ public class GameboardModel {
             this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
             if(crushingAnimals.size() != (originalSize)) {
-                animals[originalRow][originalCol] = getAnimal(swapRow, swapCol);
-                animals[swapRow][swapCol] = getAnimal(originalRow, originalCol);
                 crushingAnimals.add(getAnimal(swapRow, swapCol));
             }
         }
@@ -166,8 +161,6 @@ public class GameboardModel {
             this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
             this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
             if(crushingAnimals.size() != (originalSize)) {
-                animals[originalRow][originalCol] = getAnimal(swapRow, swapCol);
-                animals[swapRow][swapCol] = getAnimal(originalRow, originalCol);
                 crushingAnimals.add(getAnimal(swapRow, swapCol));
             }
         }
@@ -179,6 +172,14 @@ public class GameboardModel {
 
         this.updateScore();
         this.generateNewAnimal();
+//        this.swap(row1, col1, row2, col2);
+    }
+
+    public void swap(int row1, int col1, int row2, int col2){
+        AnimalModel temp = animals[row1][col1];
+        animals[row1][col1] = animals[row2][col2];
+        animals[row2][col2] = temp;
+
     }
 
     private void updateScore(){
@@ -213,6 +214,11 @@ public class GameboardModel {
             this.animals[row][col] = new TigerModel(row, col);
         }
 
+    }
+
+    public void clearUp(){
+        firstClickedAnimal.clear();
+        crushingAnimals.clear();
     }
 
     /**
