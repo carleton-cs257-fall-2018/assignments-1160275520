@@ -49,11 +49,8 @@ public class Controller implements EventHandler<MouseEvent> {
         this.AnimalCrushView.update(this.gameboardModel);
         this.scoreLabel.setText(String.format("Score: %d", this.gameboardModel.getScore()));
         this.targetLabel.setText(String.format("Target Score: %d", this.gameboardModel.getTargetScore()));
-        this.messageLabel.setText("");
-//        if (this.gameboardModel.isGameOver()) {
-//            this.messageLabel.setText("Congratulations!");
-//            this.gameboardModel.nextGame();
-//        }
+        this.messageLabel.setText(String.format("Level: %d", this.gameboardModel.getLevel()));
+
 
     }
 

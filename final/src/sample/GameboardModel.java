@@ -72,6 +72,9 @@ public class GameboardModel {
     public int getTargetScore() {
         return this.targetScore;
     }
+    public int getLevel() {
+        return this.currentLevel;
+    }
 
 
     /**
