@@ -64,7 +64,7 @@ public class AnimalCrushView extends Group {
 
 
     //This method update the game board view by giving each grid an animal picture and a function when user clicks
-    public boolean update(GameboardModel model) {
+    public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
 
         for (int row = 0; row < rowCount; row++) {
