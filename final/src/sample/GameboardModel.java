@@ -282,21 +282,27 @@ public class GameboardModel {
 
     private void randomSetAnimals(int row, int col){
         Random random = new Random();
-        int num =  random.nextInt(5);
-        if (num==4){
+        int num =  random.nextInt(6);
+        if (num==6){
             this.animals[row][col] = new DogModel(row, col);
         }
-        else if(num==3){
+        else if(num==5){
+            this.animals[row][col] = new WolfModel(row, col);
+        }
+        else if(num==4){
             this.animals[row][col] = new CatModel(row, col);
         }
-        else if(num==2){
+        else if(num==3){
             this.animals[row][col] = new DeerModel(row, col);
         }
-        else if(num==1){
+        else if(num==2){
             this.animals[row][col] = new LionModel(row, col);
         }
-        else if(num==0){
+        else if(num==1){
             this.animals[row][col] = new TigerModel(row, col);
+        }
+        else if(num==0){
+            this.animals[row][col] = new RabbitModel(row, col);
         }
 
     }
