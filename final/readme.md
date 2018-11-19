@@ -9,8 +9,6 @@ Every time the an animal grid is swapped to a new position, the algorithm will s
  
 The total points are equal to the total number of crushing animals. When the player reaches the target score, the game is reset to the next level.
 
-On the top bar of the game board, the player's current score (cumulative) and the target score of the current level are shown. The scores that is added is based on the number of total matching animals that the player finds (minimum 2). 
-
 2.Why MVC is appropriate?
 
 MVC is appropriate for our project because it helps to organize the projects in different parts. This is useful because it makes development process faster, as one person can work on view while the other can work on model. Also the modification of view will not affect the entire model, which is useful to update the program. 
