@@ -31,7 +31,7 @@ public class GameboardModel {
 
     public void gameStart() {
         this.score = 0;
-        this.targetScore = currentLevel*5;
+        this.targetScore = currentLevel*10;
         this.initializeGameboard();
     }
 
