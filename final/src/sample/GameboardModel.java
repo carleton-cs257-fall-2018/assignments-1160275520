@@ -17,6 +17,8 @@ public class GameboardModel {
     private AnimalModel[][] animals; //all the animal grids
     private List<Integer> clickedAnimalsPosition; //the position of two animals that the user clicks
     private List<AnimalModel> crushingAnimals; //all the matching animals that need to be replaced
+    private int currentLevel;
+    private int targetScore;
     
     
     public GameboardModel(int rowCount, int columnCount) {
@@ -25,6 +27,8 @@ public class GameboardModel {
         this.clickedAnimalsPosition = new ArrayList<>();
         this.crushingAnimals= new ArrayList<>();
         this.gameOver = false;
+        this.currentLevel = 1;
+        this.targetScore = currentLevel*5;
         this.gameStart();
     }
 
@@ -52,13 +56,16 @@ public class GameboardModel {
     public int getScore() {
         return this.score;
     }
+    public int getTargetScore() {
+        return this.targetScore;
+    }
 
     /**
      * A method to check if the game is over
      * @return  a boolean where true means the game is over
      */
     public boolean isGameOver() {
-        if (score >= 10){
+        if (score >= targetScore){
             gameOver = true;
         }
         return this.gameOver;
@@ -67,6 +74,11 @@ public class GameboardModel {
     public void gameStart() {
         this.score = 0;
         this.initializeGameboard();
+    }
+
+    public void nextGame(){
+        this.gameStart();
+        this.currentLevel++;
     }
 
     /**

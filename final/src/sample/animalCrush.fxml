@@ -6,9 +6,10 @@
 
 <BorderPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml">
     <top>
-        <BorderPane prefHeight="35" style="-fx-background-color: #2b9cf1; -fx-padding: 10px, 5px, 10px, 5px" >
+        <BorderPane prefHeight="35" style="-fx-background-color: rgba(15,15,15,0.96); -fx-padding: 10px, 5px, 10px, 5px" >
             <left><Label fx:id="scoreLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></left>
-            <right><Label fx:id="messageLabel" style="-fx-font-size: 150%; -fx-text-fill: white"/></right>
+            <right><Label fx:id="targetLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></right>
+            <center><Label fx:id="messageLabel" style="-fx-font-size: 150%; -fx-text-fill: white"/></center>
         </BorderPane>
     </top>
 

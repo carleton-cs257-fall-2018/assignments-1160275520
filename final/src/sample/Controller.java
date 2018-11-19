@@ -21,9 +21,11 @@ import javafx.util.Duration;
 public class Controller implements EventHandler<MouseEvent> {
     @FXML private Label scoreLabel;
     @FXML private Label messageLabel;
+    @FXML private Label targetLabel;
     @FXML private AnimalCrushView AnimalCrushView;
     private int clickCount;
     private GameboardModel gameboardModel;
+
 
     public Controller() {
         clickCount = 0;
@@ -46,9 +48,13 @@ public class Controller implements EventHandler<MouseEvent> {
     private void update() {
         this.AnimalCrushView.update(this.gameboardModel);
         this.scoreLabel.setText(String.format("Score: %d", this.gameboardModel.getScore()));
-        if (this.gameboardModel.isGameOver()) {
-            this.messageLabel.setText("Congratulation!");
-        }
+        this.targetLabel.setText(String.format("Target Score: %d", this.gameboardModel.getTargetScore()));
+        this.messageLabel.setText("");
+//        if (this.gameboardModel.isGameOver()) {
+//            this.messageLabel.setText("Congratulations!");
+//            this.gameboardModel.nextGame();
+//        }
+
     }
 
     @Override
@@ -59,8 +65,16 @@ public class Controller implements EventHandler<MouseEvent> {
             if(clickCount == 2){
                 Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> this.update()));
                 timeline.play();
-//                this.update();
                 clickCount = 0;
+                //if the game is over
+                if (this.gameboardModel.isGameOver()) {
+                    this.messageLabel.setText("Congratulations!");
+                    //start the next game
+                    this.gameboardModel.nextGame();
+                    //update the animal crush view again
+                    Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(10000), ae -> this.update()));
+                    timeline2.play();
+                }
             }
         }
     }
