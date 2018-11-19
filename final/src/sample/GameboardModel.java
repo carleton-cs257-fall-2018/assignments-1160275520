@@ -14,10 +14,10 @@ public class GameboardModel {
 
     private int score;
     private int targetScore;
+    private int currentLevel;
     private AnimalModel[][] animals; //all the animal grids
     private List<Integer> clickedAnimalsPosition; //the position of the two animals that the user clicks
     private List<AnimalModel> crushingAnimals; //all the matching animals that need to be replaced
-    private int currentLevel;
 
     
     public GameboardModel(int rowCount, int columnCount) {
@@ -26,6 +26,22 @@ public class GameboardModel {
         this.clickedAnimalsPosition = new ArrayList<>();
         this.crushingAnimals= new ArrayList<>();
         this.currentLevel = 1;
+        this.gameStart();
+    }
+
+    public void gameStart() {
+        this.score = 0;
+        this.targetScore = currentLevel*5;
+        this.initializeGameboard();
+    }
+
+    public boolean isGameOver() {
+        return score >= targetScore;
+
+    }
+
+    public void nextGame(){
+        this.currentLevel++;
         this.gameStart();
     }
 
@@ -57,25 +73,6 @@ public class GameboardModel {
         return this.targetScore;
     }
 
-    /**
-     * A method to check if the game is over
-     * @return  a boolean where true means the game is over
-     */
-    public boolean isGameOver() {
-        return score >= targetScore;
-
-    }
-
-    public void gameStart() {
-        this.score = 0;
-        this.targetScore = currentLevel*5;
-        this.initializeGameboard();
-    }
-
-    public void nextGame(){
-        this.currentLevel++;
-        this.gameStart();
-    }
 
     /**
      * this method initialize the gameboard by randomly assigning an animal type to each grid,
@@ -89,6 +86,36 @@ public class GameboardModel {
                 randomSetAnimals(row, col);
             }
         }
+    }
+
+    private void randomSetAnimals(int row, int col){
+        Random random = new Random();
+        int num =  random.nextInt(8);
+        if (num==6){
+            this.animals[row][col] = new DogModel(row, col);
+        }
+        else if(num==7){
+            this.animals[row][col] = new GiraffeModel(row, col);
+        }
+        else if(num==5){
+            this.animals[row][col] = new WolfModel(row, col);
+        }
+        else if(num==4){
+            this.animals[row][col] = new CatModel(row, col);
+        }
+        else if(num==3){
+            this.animals[row][col] = new DeerModel(row, col);
+        }
+        else if(num==2){
+            this.animals[row][col] = new LionModel(row, col);
+        }
+        else if(num==1){
+            this.animals[row][col] = new TigerModel(row, col);
+        }
+        else if(num==0){
+            this.animals[row][col] = new RabbitModel(row, col);
+        }
+
     }
 
     /**
@@ -109,10 +136,10 @@ public class GameboardModel {
         }
         //Otherwise
         else{
-            //checks if the two animal are of the same type and are neighbours.
+            //if the two animal are of the same type and are neighbours.
             if (checkNeighbour() && !checkSameType())
             {
-                //if yes, check the matching animals that need to be replaced and add them to the list
+                //check the matching animals that need to be replaced and add them to the list
                 this.checkAllCrush(clickedAnimalsPosition.get(0), clickedAnimalsPosition.get(1),rowIndex, colIndex);
                 return true;
             }
@@ -263,17 +290,14 @@ public class GameboardModel {
     }
     
 
-    //this method update the whole gameboad by swaping two animals that the user clicks
-    //updating the score, replacing the crushing animal with new animals
-    //and clear up the crushingAnimalList and clickedAnimalList
+    //This method update the whole gameboard
     public void update(){
         this.updateScore();
-        this.swap();
-        this.replaceWithNewAnimal();
-        this.clearUp();
+        this.swap(); //swapping two animals that the user clicks
+        this.replaceWithNewAnimal(); //replacing crushing animals with new animals
+        this.clearUp(); //clear up the crushingAnimalList and clickedAnimalList
     }
 
-    //this method swap two animals
     public void swap(){
         if (this.clickedAnimalsPosition.size()==4 && this.crushingAnimals.size()!=0){
             int row1 = this.clickedAnimalsPosition.get(0);
@@ -296,7 +320,6 @@ public class GameboardModel {
         this.score = score + this.crushingAnimals.size();
     }
 
-    //this method replace the crushing animals with new random animals
     private void replaceWithNewAnimal(){
         for(int i = 0; i < crushingAnimals.size(); i++){
             int tempRow = crushingAnimals.get(i).getRow();
@@ -305,37 +328,6 @@ public class GameboardModel {
         }
     }
 
-    private void randomSetAnimals(int row, int col){
-        Random random = new Random();
-        int num =  random.nextInt(8);
-        if (num==6){
-            this.animals[row][col] = new DogModel(row, col);
-        }
-        else if(num==7){
-            this.animals[row][col] = new GiraffeModel(row, col);
-        }
-        else if(num==5){
-            this.animals[row][col] = new WolfModel(row, col);
-        }
-        else if(num==4){
-            this.animals[row][col] = new CatModel(row, col);
-        }
-        else if(num==3){
-            this.animals[row][col] = new DeerModel(row, col);
-        }
-        else if(num==2){
-            this.animals[row][col] = new LionModel(row, col);
-        }
-        else if(num==1){
-            this.animals[row][col] = new TigerModel(row, col);
-        }
-        else if(num==0){
-            this.animals[row][col] = new RabbitModel(row, col);
-        }
-
-    }
-
-    //this method reset the clickedAnimalsList and crushingAnimalList
     public void clearUp(){
         clickedAnimalsPosition.clear();
         crushingAnimals.clear();

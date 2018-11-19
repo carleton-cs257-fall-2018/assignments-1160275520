@@ -63,33 +63,32 @@ public class AnimalCrushView extends Group {
     }
 
 
-    //This method update the game board view by giving each grid an animal picture and a function when user clicks
+    //This method update the game board view by assigning each grid an animal picture and a MouseClick function
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
 
         for (int row = 0; row < rowCount; row++) {
             for (int column = 0; column < columnCount; column++) {
 
+                //assign each grid an animal picture
+                AnimalModel animal = model.getAnimal(row,column);
+                this.cellViews[row][column].setFill(animal.getImage());
+
                 int colIndex = column;
                 int rowIndex = row;
                 Rectangle rectangle = this.cellViews[row][column];
-
-                //When user clicks the grid, it triggers the userClick function in the game board model
                 rectangle.setOnMouseClicked(e -> {
-                    // if user clicks two animals
+                    // if the gameboard need to be updated
                     if (model.userClickAnimal(rowIndex, colIndex)){
                         //generate swapping effects in the view
                         this.swapAnimals(model.getClickedAnimalsPosition(),model);
-                        //generate crushing effects in the view
+                        //generate crushing effects
                         this.crushingAnimals(model);
-                        //update the model by swaping two animals, replacing crushing animals with new animal and updating the score
+                        //update the gameboard model
                         model.update();
                     }
                 });
 
-                //give each grid an animal picture
-                AnimalModel animal = model.getAnimal(row,column);
-                this.cellViews[row][column].setFill(animal.getImage());
             }
         }
     }
