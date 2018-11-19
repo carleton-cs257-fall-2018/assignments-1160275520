@@ -45,6 +45,10 @@ public class GameboardModel {
         return this.crushingAnimals;
     }
 
+    public List<Integer> getClickedAnimalsPosition(){
+        return  this.clickedAnimalsPosition;
+    }
+
     public int getScore() {
         return this.score;
     }
@@ -76,8 +80,10 @@ public class GameboardModel {
      * This method handle the event when the user click an animal grid
      * @param  colIndex the column of the animals in the game board
      * @param  rowIndex the row of the animal in the game board
+     * return True if the gameboard needs to change
+     * return False if the gameboard remains the same
      */
-    public List<Integer> userClickAnimal(int colIndex, int rowIndex){
+    public Boolean userClickAnimal(int rowIndex, int colIndex){
         //If this is first animal that the users click, add it to the list
         if (this.clickedAnimalsPosition.isEmpty()){
             this.clickedAnimalsPosition.add(rowIndex);
@@ -93,13 +99,16 @@ public class GameboardModel {
                 this.checkCrush(rowIndex, colIndex, clickedAnimalsPosition.get(0), clickedAnimalsPosition.get(1));
                 this.clickedAnimalsPosition.add(rowIndex);
                 this.clickedAnimalsPosition.add(colIndex);
+                //swap two click animals
+//                this.swap();
+                return true;
             }
             //otherwise, clear the clicked animal list.
             else{
                 clickedAnimalsPosition.clear();
             }
         }
-        return this.clickedAnimalsPosition;
+        return false;
     }
 
     private boolean checkNeighbour(int row1, int col1, int row2, int col2){
@@ -189,63 +198,66 @@ public class GameboardModel {
 
     private int checkCrush(int originalRow, int originalCol, int swapRow, int swapCol){
 
+        int originalSize = crushingAnimals.size();
         //if going up, check up, right, left
         if (swapCol==originalCol &&  originalRow-swapRow==1){
-            int originalSize = crushingAnimals.size();
             this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
             this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
-            if(crushingAnimals.size() != (originalSize)) {
-                crushingAnimals.add(getAnimal(swapRow, swapCol));
-            }
         }
 
         //if going down, check down, right, left
         else if (swapCol==originalCol &&  originalRow-swapRow==-1){
-            int originalSize = crushingAnimals.size();
             this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
             this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
-            if(crushingAnimals.size() != (originalSize)) {
-                crushingAnimals.add(getAnimal(swapRow, swapCol));
-            }
         }
 
         //if going right, check down, up, right
         else if (swapRow==originalRow &&  originalCol-swapCol==-1){
-            int originalSize = crushingAnimals.size();
             this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
             this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
-            if(crushingAnimals.size() != (originalSize)) {
-                crushingAnimals.add(getAnimal(swapRow, swapCol));
-            }
         }
 
         //if going left, check down, up, left
         else if (swapRow==originalRow &&  originalCol-swapCol==1){
-            int originalSize = crushingAnimals.size();
             this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
             this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
             this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
-            if(crushingAnimals.size() != (originalSize)) {
-                crushingAnimals.add(getAnimal(swapRow, swapCol));
-            }
         }
+
+        if(crushingAnimals.size() != (originalSize)) {
+            crushingAnimals.add(getAnimal(originalRow, originalCol));
+        }
+
         return crushingAnimals.size();
     }
 
     //this method update the score and all the animal grids in gameboard
     public void update(){
         this.updateScore();
+        this.swap();
         this.generateNewAnimal();
     }
 
     //this method swap two animals
-    public void swap(int row1, int col1, int row2, int col2){
-        AnimalModel temp = animals[row1][col1];
-        animals[row1][col1] = animals[row2][col2];
-        animals[row2][col2] = temp;
+    public void swap(){
+        if (this.clickedAnimalsPosition.size()==4){
+            int row1 = this.clickedAnimalsPosition.get(0);
+            int col1 = this.clickedAnimalsPosition.get(1);
+            int row2 = this.clickedAnimalsPosition.get(2);
+            int col2 = this.clickedAnimalsPosition.get(3);
+
+            AnimalModel animal1 = animals[row1][col1];
+            AnimalModel animal2 = animals[row2][col2];
+
+            animal1.setPosition(row2,col2);
+            animal2.setPosition(row1,col1);
+
+            animals[row1][col1] = animal2;
+            animals[row2][col2] = animal1;
+        }
     }
 
     private void updateScore(){
