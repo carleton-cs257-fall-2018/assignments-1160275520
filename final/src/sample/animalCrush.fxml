@@ -1,14 +1,10 @@
-<?import javafx.scene.layout.AnchorPane?><?import sample.AnimalCrushView?>
+<?import sample.AnimalCrushView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.GridPane?>
 
 
 <BorderPane fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml">
-    <!-- See https://apps.carleton.edu/creativeservices/identity/college_colors/ for official Carleton colors -->
     <top>
         <BorderPane prefHeight="35" style="-fx-background-color: #2b9cf1; -fx-padding: 10px, 5px, 10px, 5px" >
             <left><Label fx:id="scoreLabel" style="-fx-font-size: 150%; -fx-text-fill: white" /></left>
@@ -19,6 +15,5 @@
     <center>
         <AnimalCrushView fx:id="AnimalCrushView" rowCount="8" columnCount="8" />
     </center>
-
 </BorderPane>
 

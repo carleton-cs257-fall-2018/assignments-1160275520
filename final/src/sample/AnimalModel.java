@@ -7,7 +7,6 @@
 
 package sample;
 
-import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
 public class AnimalModel {

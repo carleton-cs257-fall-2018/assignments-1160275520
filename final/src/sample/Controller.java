@@ -10,15 +10,10 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.MouseButton;
 import javafx.animation.Timeline;
-import javafx.scene.image.ImageView;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.util.Duration;
 
 
@@ -27,9 +22,7 @@ public class Controller implements EventHandler<MouseEvent> {
     @FXML private Label scoreLabel;
     @FXML private Label messageLabel;
     @FXML private AnimalCrushView AnimalCrushView;
-
     private int clickCount;
-
     private GameboardModel gameboardModel;
 
     public Controller() {
@@ -56,14 +49,12 @@ public class Controller implements EventHandler<MouseEvent> {
         if (this.gameboardModel.isGameOver()) {
             this.messageLabel.setText("Congratulation!");
         }
-//        else {
-//            this.gameboardModel.update();
-//        }
     }
 
     @Override
     public void handle(MouseEvent mouseEvent) {
         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+            //if the user click two grids, update the animal crush view.
             clickCount +=1;
             if(clickCount == 2){
                 Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> this.update()));
