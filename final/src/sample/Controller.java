@@ -36,7 +36,6 @@ public class Controller implements EventHandler<MouseEvent> {
         this.update();
     }
 
-
     public double getBoardWidth() {
         return AnimalCrushView.CELL_WIDTH * 8;
     }
@@ -50,8 +49,6 @@ public class Controller implements EventHandler<MouseEvent> {
         this.scoreLabel.setText(String.format("Score: %d", this.gameboardModel.getScore()));
         this.targetLabel.setText(String.format("Target Score: %d", this.gameboardModel.getTargetScore()));
         this.messageLabel.setText(String.format("Level: %d", this.gameboardModel.getLevel()));
-
-
     }
 
     @Override

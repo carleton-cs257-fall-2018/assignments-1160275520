@@ -3,6 +3,8 @@
 
 1.Description:
 
+![alt text](https://s3.amazonaws.com/backgroundpicture/animalcrush.png)
+
 Modified from the classic candy crash game, Animal Crush is a video game to find matching animals. In the game, the player wants to find matching animals by swapping animal grids.
 
 Every time the an animal grid is swapped to a new position, the algorithm will search nearby animal grids vertically and horizontally on the game board. If the nearby animals are the same as the swapped animal, they will crush with the swapped animal and replaced by new ones, and the player will get points.
