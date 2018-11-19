@@ -13,9 +13,8 @@ import java.util.*;
 public class GameboardModel {
 
     private int score;
-    private boolean gameOver;
     private AnimalModel[][] animals; //all the animal grids
-    private List<Integer> clickedAnimalsPosition; //the position of two animals that the user clicks
+    private List<Integer> clickedAnimalsPosition; //the position of the two animals that the user clicks
     private List<AnimalModel> crushingAnimals; //all the matching animals that need to be replaced
     private int currentLevel;
     private int targetScore;
@@ -26,7 +25,6 @@ public class GameboardModel {
         this.animals = new AnimalModel[rowCount][columnCount];
         this.clickedAnimalsPosition = new ArrayList<>();
         this.crushingAnimals= new ArrayList<>();
-        this.gameOver = false;
         this.currentLevel = 1;
         this.targetScore = currentLevel*5;
         this.gameStart();
@@ -65,10 +63,8 @@ public class GameboardModel {
      * @return  a boolean where true means the game is over
      */
     public boolean isGameOver() {
-        if (score >= targetScore){
-            gameOver = true;
-        }
-        return this.gameOver;
+        return score >= targetScore;
+
     }
 
     public void gameStart() {
@@ -103,21 +99,21 @@ public class GameboardModel {
      * return False if the gameboard remains the same
      */
     public Boolean userClickAnimal(int rowIndex, int colIndex){
-        //If this is first animal that the users click, add it to the list
-        if (this.clickedAnimalsPosition.isEmpty()){
-            this.clickedAnimalsPosition.add(rowIndex);
-            this.clickedAnimalsPosition.add(colIndex);
+        //add the animal to the list
+        this.clickedAnimalsPosition.add(rowIndex);
+        this.clickedAnimalsPosition.add(colIndex);
+
+        //if this is the first animal that the user click, return false
+        if (this.clickedAnimalsPosition.size()==2){
+            return false;
         }
+        //Otherwise
         else{
-            //Otherwise, checks if the two animal are of the same type and are neighbours.
-            if (checkNeighbour(rowIndex, colIndex, clickedAnimalsPosition.get(0), clickedAnimalsPosition.get(1))
-                    && !checkSameType(rowIndex, colIndex, clickedAnimalsPosition.get(0), clickedAnimalsPosition.get(1)))
+            //checks if the two animal are of the same type and are neighbours.
+            if (checkNeighbour() && !checkSameType())
             {
                 //if yes, check the matching animals that need to be replaced and add them to the list
-                this.checkCrush(clickedAnimalsPosition.get(0), clickedAnimalsPosition.get(1),rowIndex, colIndex);
-                this.checkCrush(rowIndex, colIndex, clickedAnimalsPosition.get(0), clickedAnimalsPosition.get(1));
-                this.clickedAnimalsPosition.add(rowIndex);
-                this.clickedAnimalsPosition.add(colIndex);
+                this.checkAllCrush(clickedAnimalsPosition.get(0), clickedAnimalsPosition.get(1),rowIndex, colIndex);
                 return true;
             }
             //otherwise, clear the clicked animal list.
@@ -128,14 +124,75 @@ public class GameboardModel {
         return false;
     }
 
-    private boolean checkNeighbour(int row1, int col1, int row2, int col2){
+    private boolean checkNeighbour(){
+        int row1 = this.clickedAnimalsPosition.get(0);
+        int col1 = this.clickedAnimalsPosition.get(1);
+        int row2 = this.clickedAnimalsPosition.get(2);
+        int col2 = this.clickedAnimalsPosition.get(3);
+
         return ((col1==col2 && Math.abs(row1-row2)==1) || (row1==row2 && Math.abs(col1-col2)==1));
     }
 
-    private boolean checkSameType(int row1, int col1, int row2, int col2){
-        AnimalModel animal1 = animals[row1][col1];
-        AnimalModel animal2 = animals[row2][col2];
+    private boolean checkSameType(){
+        AnimalModel animal1 = animals[this.clickedAnimalsPosition.get(0)][this.clickedAnimalsPosition.get(1)];
+        AnimalModel animal2 = animals[this.clickedAnimalsPosition.get(2)][this.clickedAnimalsPosition.get(3)];
         return (animal1.getType()==animal2.getType());
+    }
+
+    /**
+     * This methods check all the crushing after the user clicks two animal
+     * @param  row1 the row of the first animal that the user click
+     * @param  col1 the column of the first animal that the user click
+     * @param  row2 the row of the second animal that the user click
+     * @param  col2 the column of the second animal after swap
+     */
+    private void checkAllCrush(int row1, int col1, int row2, int col2){
+        checkSingleCrush(row1, col1, row2, col2);
+        checkSingleCrush(row2, col2, row1, col1);
+    }
+
+    /**
+     * This methods check if the animal will cause crushing after the user swaps it to a new position
+     * @param  originalRow the original row of the animals before swap
+     * @param  originalCol the original column of the animal before swap
+     * @param  swapRow the new row of the animals after swap
+     * @param  swapCol the new column of the animal after swap
+     */
+    private void checkSingleCrush(int originalRow, int originalCol, int swapRow, int swapCol){
+
+        int originalSize = crushingAnimals.size();
+        //if going up, check up, right, left
+        if (swapCol==originalCol &&  originalRow-swapRow==1){
+            this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
+            this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
+            this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
+        }
+
+        //if going down, check down, right, left
+        else if (swapCol==originalCol &&  originalRow-swapRow==-1){
+            this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
+            this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
+            this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
+        }
+
+        //if going right, check down, up, right
+        else if (swapRow==originalRow &&  originalCol-swapCol==-1){
+            this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
+            this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
+            this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
+        }
+
+        //if going left, check down, up, left
+        else if (swapRow==originalRow &&  originalCol-swapCol==1){
+            this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
+            this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
+            this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
+        }
+
+        //if the original animal causes crushing, add the animal into crushing animal list
+        if(crushingAnimals.size() != (originalSize)) {
+            crushingAnimals.add(getAnimal(originalRow, originalCol));
+        }
     }
 
     /**
@@ -204,58 +261,16 @@ public class GameboardModel {
             }
         }
     }
+    
 
-    /**
-     * This methods check if the animal will cause crushing after the user swaps it to a new position
-     * @param  originalRow the original row of the animals before swap
-     * @param  originalCol the original column of the animal before swap
-     * @param  swapRow the new row of the animals after swap
-     * @param  swapCol the new column of the animal after swap
-     */
-
-    private int checkCrush(int originalRow, int originalCol, int swapRow, int swapCol){
-
-        int originalSize = crushingAnimals.size();
-        //if going up, check up, right, left
-        if (swapCol==originalCol &&  originalRow-swapRow==1){
-            this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
-            this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
-            this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
-        }
-
-        //if going down, check down, right, left
-        else if (swapCol==originalCol &&  originalRow-swapRow==-1){
-            this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
-            this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
-            this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
-        }
-
-        //if going right, check down, up, right
-        else if (swapRow==originalRow &&  originalCol-swapCol==-1){
-            this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
-            this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
-            this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
-        }
-
-        //if going left, check down, up, left
-        else if (swapRow==originalRow &&  originalCol-swapCol==1){
-            this.checkDownwards(originalRow, originalCol, swapRow, swapCol);
-            this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
-            this.checkLeftwards(originalRow, originalCol, swapRow, swapCol);
-        }
-
-        if(crushingAnimals.size() != (originalSize)) {
-            crushingAnimals.add(getAnimal(originalRow, originalCol));
-        }
-
-        return crushingAnimals.size();
-    }
-
-    //this method update the score and all the animal grids in gameboard
+    //this method update the whole gameboad by swaping two animals that the user clicks
+    //updating the score, replacing the crushing animal with new animals
+    //and clear up the crushingAnimalList and clickedAnimalList
     public void update(){
         this.updateScore();
         this.swap();
-        this.generateNewAnimal();
+        this.replaceWithNewAnimal();
+        this.clearUp();
     }
 
     //this method swap two animals
@@ -282,7 +297,7 @@ public class GameboardModel {
     }
 
     //this method replace the crushing animals with new random animals
-    private void generateNewAnimal(){
+    private void replaceWithNewAnimal(){
         for(int i = 0; i < crushingAnimals.size(); i++){
             int tempRow = crushingAnimals.get(i).getRow();
             int tempCol = crushingAnimals.get(i).getCol();
@@ -319,6 +334,8 @@ public class GameboardModel {
         }
 
     }
+
+    //this method reset the clickedAnimalsList and crushingAnimalList
     public void clearUp(){
         clickedAnimalsPosition.clear();
         crushingAnimals.clear();
