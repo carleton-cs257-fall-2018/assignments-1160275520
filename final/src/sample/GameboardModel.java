@@ -56,6 +56,9 @@ public class GameboardModel {
     public int getTargetScore() {
         return this.targetScore;
     }
+    public int getLevel() {
+        return this.currentLevel;
+    }
 
     /**
      * A method to check if the game is over
