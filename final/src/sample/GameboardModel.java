@@ -294,9 +294,12 @@ public class GameboardModel {
 
     private void randomSetAnimals(int row, int col){
         Random random = new Random();
-        int num =  random.nextInt(6);
+        int num =  random.nextInt(8);
         if (num==6){
             this.animals[row][col] = new DogModel(row, col);
+        }
+        else if(num==7){
+            this.animals[row][col] = new GiraffeModel(row, col);
         }
         else if(num==5){
             this.animals[row][col] = new WolfModel(row, col);

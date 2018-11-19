@@ -3,19 +3,20 @@ package sample;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
-public class CatModel extends AnimalModel{
+public class CatModel extends AnimalModel {
 
-    public CatModel(int row, int col){
+    public CatModel(int row, int col) {
         super(row, col);
     }
 
-    public ImagePattern getImage(){
+    public ImagePattern getImage() {
         Image cat = new Image("animals/cat.jpg");
         ImagePattern catPattern = new ImagePattern(cat);
         return catPattern;
     }
 
-    public String getType(){
+    public String getType() {
         return "cat";
     }
+
 }
