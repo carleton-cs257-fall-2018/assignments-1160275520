@@ -13,9 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.ImagePattern;
 import javafx.animation.Timeline;
-import javafx.scene.image.ImageView;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.util.Duration;
 import java.util.*;
 
@@ -24,7 +22,6 @@ public class AnimalCrushView extends Group {
     public final static double CELL_WIDTH = 80.0;
     @FXML private int rowCount;
     @FXML private int columnCount;
-
     private Rectangle[][] cellViews;
 
     public AnimalCrushView() {
@@ -66,6 +63,7 @@ public class AnimalCrushView extends Group {
     }
 
 
+    //This method update the gameboard view by giving each grid an animal picture and a function when user click
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
 
@@ -76,25 +74,28 @@ public class AnimalCrushView extends Group {
                 int rowIndex = row;
                 Rectangle rectangle = this.cellViews[row][column];
 
+                //When user click the grid, it triggers the userClick function in the gameboard model
                 rectangle.setOnMouseClicked(e -> {
                     List<Integer> swapAnimalsIndex = model.userClickAnimal(colIndex, rowIndex);
+                    // it user clicks two animals that can cause crush
                     if (swapAnimalsIndex.size()==4){
+                        //generate swapping effects in the view
                         this.swapAnimals(swapAnimalsIndex,model);
+                        //generate crushing effects in the view
                         this.crushingAnimals(model);
+                        //update the model by swaping two animals, replaced crushing animal with new animal and update score
                         model.swap(swapAnimalsIndex.get(0),swapAnimalsIndex.get(1),
                                 swapAnimalsIndex.get(2),swapAnimalsIndex.get(3));
                         model.update();
-//                        model.update(swapAnimalsIndex.get(0),swapAnimalsIndex.get(1),
-//                                swapAnimalsIndex.get(2),swapAnimalsIndex.get(3));
                         model.clearUp();
                     }
                 });
 
+                //give each grid an animal picture
                 AnimalModel animal = model.getAnimal(row,column);
                 this.cellViews[row][column].setFill(animal.getImage());
             }
         }
-
     }
 
     private void swapAnimals(List<Integer> swapAnimalIndex, GameboardModel model){
@@ -108,10 +109,11 @@ public class AnimalCrushView extends Group {
         List<AnimalModel> crushingAnimals = model.getCrushingAnimals();
         for (int index = 0; index<crushingAnimals.size(); index++){
             AnimalModel animal = crushingAnimals.get(index);
-
             Image bomb = new Image("animals/bomb.gif");
             ImagePattern bombPattern = new ImagePattern(bomb);
-            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2500), ae -> this.cellViews[animal.getRow()][animal.getCol()].setFill(bombPattern)));
+
+            //use the timeline to generate the crushing effects after the swapping effects
+            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), ae -> this.cellViews[animal.getRow()][animal.getCol()].setFill(bombPattern)));
             timeline.play();
         }
     }
