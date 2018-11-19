@@ -64,7 +64,7 @@ public class AnimalCrushView extends Group {
 
 
     //This method update the game board view by giving each grid an animal picture and a function when user clicks
-    public void update(GameboardModel model) {
+    public boolean update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
 
         for (int row = 0; row < rowCount; row++) {
@@ -76,14 +76,15 @@ public class AnimalCrushView extends Group {
 
                 //When user clicks the grid, it triggers the userClick function in the game board model
                 rectangle.setOnMouseClicked(e -> {
-                    // it user clicks two animals that can cause crush and gameboard need to change
+                    // it user clicks two animals
                     if (model.userClickAnimal(rowIndex, colIndex)){
                         //generate swapping effects in the view
                         this.swapAnimals(model.getClickedAnimalsPosition(),model);
                         //generate crushing effects in the view
                         this.crushingAnimals(model);
 
-                        //update the model by replaced crushing animal with new animal and updating the score
+                        //update the model by swaping two animals, replacing crushing animals with new animal and updating the score
+
                         model.update();
                         model.clearUp();
                     }
@@ -109,7 +110,6 @@ public class AnimalCrushView extends Group {
             AnimalModel animal = crushingAnimals.get(index);
             Image bomb = new Image("animals/bomb.gif");
             ImagePattern bombPattern = new ImagePattern(bomb);
-
             //use the timeline to generate the crushing effects after the swapping effects
             Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), ae -> this.cellViews[animal.getRow()][animal.getCol()].setFill(bombPattern)));
             timeline.play();

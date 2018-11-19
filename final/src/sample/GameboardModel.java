@@ -106,8 +106,6 @@ public class GameboardModel {
                 this.checkCrush(rowIndex, colIndex, clickedAnimalsPosition.get(0), clickedAnimalsPosition.get(1));
                 this.clickedAnimalsPosition.add(rowIndex);
                 this.clickedAnimalsPosition.add(colIndex);
-                //swap two click animals
-//                this.swap();
                 return true;
             }
             //otherwise, clear the clicked animal list.
@@ -250,7 +248,7 @@ public class GameboardModel {
 
     //this method swap two animals
     public void swap(){
-        if (this.clickedAnimalsPosition.size()==4){
+        if (this.clickedAnimalsPosition.size()==4 && this.crushingAnimals.size()!=0){
             int row1 = this.clickedAnimalsPosition.get(0);
             int col1 = this.clickedAnimalsPosition.get(1);
             int row2 = this.clickedAnimalsPosition.get(2);
@@ -310,5 +308,4 @@ public class GameboardModel {
         clickedAnimalsPosition.clear();
         crushingAnimals.clear();
     }
-
 }
