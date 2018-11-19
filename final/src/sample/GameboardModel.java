@@ -53,7 +53,14 @@ public class GameboardModel {
         return this.score;
     }
 
+    /**
+     * A method to check if the game is over
+     * @return  a boolean where true means the game is over
+     */
     public boolean isGameOver() {
+        if (score >= 10){
+            gameOver = true;
+        }
         return this.gameOver;
     }
 
@@ -104,8 +111,8 @@ public class GameboardModel {
                 return true;
             }
             //otherwise, clear the clicked animal list.
-            else{
-                clickedAnimalsPosition.clear();
+            else {
+                this.clickedAnimalsPosition.clear();
             }
         }
         return false;
@@ -297,4 +304,5 @@ public class GameboardModel {
         clickedAnimalsPosition.clear();
         crushingAnimals.clear();
     }
+
 }
