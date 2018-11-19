@@ -237,7 +237,7 @@ public class GameboardModel {
         if(crushingAnimals.size() != (originalSize)) {
             crushingAnimals.add(getAnimal(originalRow, originalCol));
         }
-        
+
         return crushingAnimals.size();
     }
 
