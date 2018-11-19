@@ -26,14 +26,14 @@ class GameBoardModel:
 
 --class variable: current level, current score, targetScore, a list of all the animal grids, a list of positions that are clicked, a list of crushingAnimals
 
---class method: gameStart(), checkCrush(), swap, updateGameBoard(), updateScore(), update(), nextGmae()
+--class method: gameStart(), checkSameType(), checkNeighbour(), checkSingleCrush(), swap(), update(), nextGame(), etc.
 
 
 class AnimalModel:
 --this class represents one specific animal grid, which is used to identify the type of animal grids and keep track of the position.  
 
---class variable: position, animalType 
+--class variable: row, col, type, imagePattern(the image of the animal)
 
---class method: getPosition(), getAnimalType(), initializeAnimalType()
+--class method: getRow(), getAnimalType(), etc.
 
 subclass of Lion, Deer, Dog, Cat, Tiger, Rabbit, Giraffe
