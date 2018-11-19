@@ -66,8 +66,9 @@ public class Controller implements EventHandler<MouseEvent> {
         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
             clickCount +=1;
             if(clickCount == 2){
-                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), ae -> this.update()));
+                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), ae -> this.update()));
                 timeline.play();
+//                this.update();
                 clickCount = 0;
             }
         }

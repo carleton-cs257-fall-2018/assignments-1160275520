@@ -111,7 +111,8 @@ public class AnimalCrushView extends Group {
 
             Image bomb = new Image("animals/bomb.gif");
             ImagePattern bombPattern = new ImagePattern(bomb);
-            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2500), ae -> this.cellViews[animal.getRow()][animal.getCol()].setFill(bombPattern)));
+//            this.cellViews[animal.getRow()][animal.getCol()].setFill(bombPattern);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), ae -> this.cellViews[animal.getRow()][animal.getCol()].setFill(bombPattern)));
             timeline.play();
         }
     }

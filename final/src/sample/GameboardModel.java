@@ -48,6 +48,9 @@ public class GameboardModel {
                 this.firstClickedAnimal.add(rowIndex);
                 this.firstClickedAnimal.add(colIndex);
             }
+            else {
+                this.firstClickedAnimal.clear();
+            }
         }
 
         return this.firstClickedAnimal;
@@ -122,7 +125,7 @@ public class GameboardModel {
     private int checkCrush(int originalRow, int originalCol, int swapRow, int swapCol){
 
         //if going up, check up, right, left
-        if (swapCol==originalCol &&  originalRow-swapRow==1){
+        if (swapCol==originalCol && originalRow-swapRow==1){
             int originalSize = crushingAnimals.size();
             this.checkUpwards(originalRow, originalCol, swapRow, swapCol);
             this.checkRightwards(originalRow, originalCol, swapRow, swapCol);
@@ -176,10 +179,11 @@ public class GameboardModel {
     }
 
     public void swap(int row1, int col1, int row2, int col2){
-        AnimalModel temp = animals[row1][col1];
-        animals[row1][col1] = animals[row2][col2];
-        animals[row2][col2] = temp;
-
+        if(!crushingAnimals.isEmpty()) {
+            AnimalModel temp = animals[row1][col1];
+            animals[row1][col1] = animals[row2][col2];
+            animals[row2][col2] = temp;
+        }
     }
 
     private void updateScore(){
@@ -259,6 +263,9 @@ public class GameboardModel {
      * @return  a boolean where true means the game is over
      */
     public boolean isGameOver() {
+        if (score >= 10){
+            gameOver = true;
+        }
         return this.gameOver;
     }
 
