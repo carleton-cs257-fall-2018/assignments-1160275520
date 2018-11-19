@@ -239,6 +239,7 @@ public class GameboardModel {
                 crushingAnimals.add(getAnimal(swapRow, swapCol));
             }
         }
+        System.out.println(crushingAnimals.size());
         return crushingAnimals.size();
     }
 

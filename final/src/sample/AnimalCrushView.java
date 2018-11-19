@@ -63,7 +63,7 @@ public class AnimalCrushView extends Group {
     }
 
 
-    //This method update the gameboard view by giving each grid an animal picture and a function when user click
+    //This method update the game board view by giving each grid an animal picture and a function when user clicks
     public void update(GameboardModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
 
@@ -74,7 +74,7 @@ public class AnimalCrushView extends Group {
                 int rowIndex = row;
                 Rectangle rectangle = this.cellViews[row][column];
 
-                //When user click the grid, it triggers the userClick function in the gameboard model
+                //When user clicks the grid, it triggers the userClick function in the game board model
                 rectangle.setOnMouseClicked(e -> {
                     List<Integer> swapAnimalsIndex = model.userClickAnimal(colIndex, rowIndex);
                     // it user clicks two animals that can cause crush
@@ -83,7 +83,7 @@ public class AnimalCrushView extends Group {
                         this.swapAnimals(swapAnimalsIndex,model);
                         //generate crushing effects in the view
                         this.crushingAnimals(model);
-                        //update the model by swaping two animals, replaced crushing animal with new animal and update score
+                        //update the model by swapping two animals, replaced crushing animal with new animal and update score
                         model.swap(swapAnimalsIndex.get(0),swapAnimalsIndex.get(1),
                                 swapAnimalsIndex.get(2),swapAnimalsIndex.get(3));
                         model.update();
