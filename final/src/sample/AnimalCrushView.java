@@ -76,15 +76,14 @@ public class AnimalCrushView extends Group {
 
                 //When user click the grid, it triggers the userClick function in the gameboard model
                 rectangle.setOnMouseClicked(e -> {
-                    // it user clicks two animals
+                    // if user clicks two animals
                     if (model.userClickAnimal(rowIndex, colIndex)){
                         //generate swapping effects in the view
                         this.swapAnimals(model.getClickedAnimalsPosition(),model);
                         //generate crushing effects in the view
                         this.crushingAnimals(model);
-                        //update the model by swaping two animals, replacing crushing animals with new animal and updating the score
+                        //update the model by swapping two animals, replacing crushing animals with new animal and updating the score
                         model.update();
-                        model.clearUp();
                     }
                 });
 
