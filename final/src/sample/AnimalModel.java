@@ -26,6 +26,11 @@ public class AnimalModel {
         this.col=col;
     }
 
+    public void setPosition(int newRow, int newCol){
+        this.row = newRow;
+        this.col = newCol;
+    }
+
     public int getRow(){
         return this.row;
     }
