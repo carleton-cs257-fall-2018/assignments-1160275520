@@ -13,12 +13,12 @@ import java.util.*;
 public class GameboardModel {
 
     private int score;
+    private int targetScore;
     private AnimalModel[][] animals; //all the animal grids
     private List<Integer> clickedAnimalsPosition; //the position of the two animals that the user clicks
     private List<AnimalModel> crushingAnimals; //all the matching animals that need to be replaced
     private int currentLevel;
-    private int targetScore;
-    
+
     
     public GameboardModel(int rowCount, int columnCount) {
         assert rowCount > 0 && columnCount > 0;
@@ -26,7 +26,6 @@ public class GameboardModel {
         this.clickedAnimalsPosition = new ArrayList<>();
         this.crushingAnimals= new ArrayList<>();
         this.currentLevel = 1;
-        this.targetScore = currentLevel*5;
         this.gameStart();
     }
 
@@ -69,12 +68,13 @@ public class GameboardModel {
 
     public void gameStart() {
         this.score = 0;
+        this.targetScore = currentLevel*5;
         this.initializeGameboard();
     }
 
     public void nextGame(){
-        this.gameStart();
         this.currentLevel++;
+        this.gameStart();
     }
 
     /**
